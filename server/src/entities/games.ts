@@ -4,7 +4,7 @@ export class Games implements IGames {
     id?: number;
     title: string;
     steam_id: number;
-    cover_square: string;
+    cover_square?: string;
     cover_hero?: string;
     cover_grid?: string;
     developer: string;
