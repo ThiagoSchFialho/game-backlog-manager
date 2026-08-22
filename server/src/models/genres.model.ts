@@ -21,6 +21,8 @@ export class GenresModel implements IGenresModel {
             throw dbError("Erro ao adicionar gênero ao banco de dados.", error);
         }
     }
+
+
     public async getAllGenres(): Promise<Genres[]> {
         try {
             const result = await pool.query(`
@@ -33,6 +35,8 @@ export class GenresModel implements IGenresModel {
             throw dbError("Erro ao recuperar gêneros do banco de dados.", error);
         }
     }
+
+
     public async getGenre(id: number): Promise<Genres | undefined> {
         try {
             const result = await pool.query(`
@@ -46,6 +50,8 @@ export class GenresModel implements IGenresModel {
             throw dbError("Erro ao recuperar gênero do banco de dados.", error);
         }
     }
+
+
     public async updateGenre(id: number, name: string): Promise<Genres | undefined> {
         try {
             const result = await pool.query(`
@@ -61,6 +67,8 @@ export class GenresModel implements IGenresModel {
             throw dbError("Erro ao atualizar gênero no banco de dados.", error);
         }
     }
+
+    
     public async deleteGenre(id: number): Promise<Genres | undefined> {
         try {
             const result = await pool.query(`

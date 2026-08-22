@@ -22,6 +22,7 @@ export class UsersModel implements IUserModel {
         }
     }
 
+    
     public async getUser(): Promise<Users | undefined> {
         try {
             const result = await pool.query(`
@@ -34,6 +35,7 @@ export class UsersModel implements IUserModel {
             throw dbError("Erro ao recuperar usuário do banco de dados.", error);
         }
     }
+
 
     public async updateApiKey(steam_id: number, steam_api_key: string): Promise<Users | undefined> {
         try {
@@ -50,6 +52,7 @@ export class UsersModel implements IUserModel {
             throw dbError("Erro ao atualizar usuário no banco de dados.", error);
         }
     }
+
 
     public async deleteUser(steam_id: number): Promise<Users | undefined> {
         try {
