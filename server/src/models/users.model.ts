@@ -7,6 +7,7 @@ function dbError(context: string, error: unknown): Error {
 }
 
 export class UsersModel implements IUserModel {
+    
     public async createUser(steam_id: number, steam_api_key: string): Promise<Users> {
         try {
             const result = await pool.query(`
@@ -28,6 +29,21 @@ export class UsersModel implements IUserModel {
             const result = await pool.query(`
                 SELECT * FROM users LIMIT 1;
             `);
+
+            return result.rows[0];
+        } catch (error) {
+            console.error(error);
+            throw dbError("Erro ao recuperar usuário do banco de dados.", error);
+        }
+    }
+
+
+    public async getUserBySteamId(steam_id: number): Promise<Users | undefined> {
+        try {
+            const result = await pool.query(`
+                SELECT * FROM users
+                WHERE steam_id = $1;
+            `, [steam_id]);
 
             return result.rows[0];
         } catch (error) {
