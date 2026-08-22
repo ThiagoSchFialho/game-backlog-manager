@@ -1,6 +1,6 @@
-import { IGame_genres } from "./interfaces/game_genres.interface";
+import { IGameGenres } from "./interfaces/gameGenres.interface";
 
-export class Game_genres implements IGame_genres {
+export class GameGenres implements IGameGenres {
     game_id: number;
     genre_id: number;
 

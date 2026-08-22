@@ -1,5 +1,5 @@
-import { Game_genres } from "../entities/game_genres";
-import { IGameGenresModel } from "./interfaces/game_genres.interface.model";
+import { GameGenres } from "../entities/gameGenres";
+import { IGameGenresModel } from "./interfaces/gameGenres.interface.model";
 import pool from "../config/db.config";
 
 function dbError(context: string, error: unknown): Error {
@@ -7,7 +7,7 @@ function dbError(context: string, error: unknown): Error {
 }
 
 export class GameGenresModel implements IGameGenresModel {
-    public async createGameGenre(game_id: number, genre_id: number): Promise<Game_genres> {
+    public async createGameGenre(game_id: number, genre_id: number): Promise<GameGenres> {
         try {
             const result = await pool.query(`
                 INSERT INTO game_genres (game_id, genre_id)
@@ -22,7 +22,7 @@ export class GameGenresModel implements IGameGenresModel {
         }
     }
 
-    public async getAllGameGenres(): Promise<Game_genres[]> {
+    public async getAllGameGenres(): Promise<GameGenres[]> {
         try {
             const result = await pool.query(`
                 SELECT * FROM game_genres;
@@ -35,7 +35,7 @@ export class GameGenresModel implements IGameGenresModel {
         }
     }
 
-    public async getGameGenre(id: number): Promise<Game_genres | undefined> {
+    public async getGameGenre(id: number): Promise<GameGenres | undefined> {
         try {
             const result = await pool.query(`
                 SELECT * FROM game_genres
@@ -49,7 +49,7 @@ export class GameGenresModel implements IGameGenresModel {
         }
     }
 
-    public async updateGameGenre(id: number, game_id: number, genre_id: number): Promise<Game_genres | undefined> {
+    public async updateGameGenre(id: number, game_id: number, genre_id: number): Promise<GameGenres | undefined> {
         try {
             const result = await pool.query(`
                 UPDATE game_genres
@@ -65,7 +65,7 @@ export class GameGenresModel implements IGameGenresModel {
         }
     }
 
-    public async deleteGameGenre(id: number): Promise<Game_genres | undefined> {
+    public async deleteGameGenre(id: number): Promise<GameGenres | undefined> {
         try {
             const result = await pool.query(`
                 DELETE FROM game_genres

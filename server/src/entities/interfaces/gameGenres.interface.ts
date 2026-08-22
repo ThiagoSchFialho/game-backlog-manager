@@ -1,4 +1,4 @@
-export interface IGame_genres {
+export interface IGameGenres {
     game_id: number;
     genre_id: number;
 }

@@ -1,6 +1,6 @@
-import { ICollection_games } from "./interfaces/collection_games.interface";
+import { ICollectionGames } from "./interfaces/collectionGames.interface";
 
-export class Collections_games implements ICollection_games {
+export class CollectionsGames implements ICollectionGames {
     collection_id: number;
     game_id: number;
 

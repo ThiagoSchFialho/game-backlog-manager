@@ -1,4 +1,4 @@
-export interface ICollection_games {
+export interface ICollectionGames {
     collection_id: number;
     game_id: number;
 }
