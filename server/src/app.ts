@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 
-import indexRouter from './routes/index';
+import usersRouter from './routes/users';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 3000;
 // }));
 
 app.use(express.json());
-app.use('/', indexRouter);
+app.use('/users', usersRouter);
 
 app.get('/', (req: Request, res: Response) => {
   res.json({ message: 'API rodando!' });
