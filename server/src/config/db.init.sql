@@ -43,15 +43,16 @@ CREATE TABLE collections (
 );
 
 CREATE TABLE collection_games (
+    id BIGINT PRIMARY KEY,
     collection_id BIGINT NOT NULL,
     game_id BIGINT NOT NULL,
-    PRIMARY KEY (collection_id, game_id),
     FOREIGN KEY (collection_id)
         REFERENCES collections(id)
         ON DELETE CASCADE,
     FOREIGN KEY (game_id)
         REFERENCES games(id)
-        ON DELETE CASCADE
+        ON DELETE CASCADE,
+    UNIQUE (collection_id, game_id)
 );
 
 CREATE INDEX ON collection_games(game_id);
