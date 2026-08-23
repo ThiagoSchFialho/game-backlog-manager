@@ -53,12 +53,12 @@ export class GamesModel implements IGamesModel {
     }
 
 
-    public async getGameBySteamId(steamId: number): Promise<Games | undefined> {
+    public async getGameBySteamId(steam_id: number): Promise<Games | undefined> {
         try {
             const result = await pool.query(`
                 SELECT * FROM games
                 WHERE steam_id = $1;
-            `, [steamId]);
+            `, [steam_id]);
 
             return result.rows[0];
         } catch (error) {

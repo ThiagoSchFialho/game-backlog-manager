@@ -7,10 +7,10 @@ export interface CreateGameInput {
     release_date: string;
     playtime: number;
     status: string;
-    cover_square?: string;
-    cover_hero?: string;
-    cover_grid?: string;
-    personal_rating?: number;
+    cover_square?: string | undefined;
+    cover_hero?: string | undefined;
+    cover_grid?: string | undefined;
+    personal_rating?: number | undefined;
 }
 
 export interface UpdateGameInput extends Partial<CreateGameInput> {}
@@ -18,7 +18,7 @@ export interface UpdateGameInput extends Partial<CreateGameInput> {}
 export interface IGamesModel {
     createGame(input: CreateGameInput): Promise<Games>;
     getGameById(id: number): Promise<Games | undefined>;
-    getGameBySteamId(steamId: number): Promise<Games | undefined>;
+    getGameBySteamId(steam_id: number): Promise<Games | undefined>;
     getAllGames(): Promise<Games[]>;
     updateGame(id: number, input: UpdateGameInput): Promise<Games | undefined>;
     deleteGame(id: number): Promise<Games | undefined>;
