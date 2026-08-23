@@ -1,7 +1,7 @@
 import { Collections } from "../../entities/collections";
 
 export interface CollectionWithGames extends Collections {
-    games: any[]; // ideal: trocar `any` pela interface Game, se você tiver uma
+    games: any[];
 }
 
 export interface ICollectionsModel {
