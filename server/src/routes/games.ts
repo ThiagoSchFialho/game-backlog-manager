@@ -65,17 +65,9 @@ router.post('/', async function (req: Request, res: Response) {
 });
 
 router.get('/', async function (req: Request, res: Response) {
-    const { id, steam_id } = req.query;
+    const { steam_id } = req.query;
 
     try {
-        if (id) {
-            const game = await gamesModel.getGameById(Number(id));
-            if (!game) {
-                return res.status(404).json({ message: "Nenhum jogo encontrado." });
-            }
-            return res.status(200).json(game);
-        }
-
         if (steam_id) {
             const game = await gamesModel.getGameBySteamId(Number(steam_id));
             if (!game) {
@@ -85,10 +77,26 @@ router.get('/', async function (req: Request, res: Response) {
         }
 
         const games = await gamesModel.getAllGames();
-        if (!games || games.length === 0) {
+        if (!games?.length) {
             return res.status(404).json({ message: "Nenhum jogo encontrado." });
         }
         return res.status(200).json(games);
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "Erro interno do servidor." });
+    }
+});
+
+router.get('/:id', async function (req: Request, res: Response) {
+    const { id } = req.params;
+
+    try {
+        const game = await gamesModel.getGameById(Number(id));
+        if (!game) {
+            return res.status(404).json({ message: "Nenhum jogo encontrado." });
+        }
+        return res.status(200).json(game);
 
     } catch (error) {
         console.error(error);
