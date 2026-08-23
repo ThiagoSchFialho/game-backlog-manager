@@ -4,7 +4,7 @@ import gamesRouter from './routes/games';
 import genresRouter from './routes/genres';
 import gameGenresRouter from './routes/gameGenres';
 import collectionsRouter from './routes/collections';
-import collectionsGamesRouter from './routes/collectionsGames';
+import collectionGamesRouter from './routes/collectionGames';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -21,7 +21,7 @@ app.use('/games', gamesRouter);
 app.use('/genres', genresRouter);
 app.use('/game-genres', gameGenresRouter);
 app.use('/collections', collectionsRouter);
-app.use('/collections-games', collectionsGamesRouter);
+app.use('/collection-games', collectionGamesRouter);
 
 app.get('/', (req: Request, res: Response) => {
   res.json({ message: 'API rodando!' });
