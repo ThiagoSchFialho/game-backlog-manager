@@ -4,6 +4,66 @@ import { GamesModel } from '../models/games.model';
 const gamesModel = new GamesModel();
 const router = express.Router();
 
+interface CreateGameInput {
+    title: string;
+    steam_id: number;
+    developer: string;
+    release_date: string;
+    playtime: number;
+    status: string;
+    cover_square?: string | undefined;
+    cover_hero?: string | undefined;
+    cover_grid?: string | undefined;
+    personal_rating?: number | undefined;
+}
+
+router.post('/', async function (req: Request, res: Response) {
+    const {
+        title,
+        steam_id,
+        developer,
+        release_date,
+        playtime,
+        status,
+        cover_square,
+        cover_hero,
+        cover_grid,
+        personal_rating
+    }: CreateGameInput = req.body;
+
+    const requiredFields = [ title, steam_id, developer, release_date, playtime, status ];
+
+    requiredFields.forEach((atribute) => {
+        if (!atribute) {
+            res.status(400).json({ error: `${atribute} não informado.` });
+        }
+    });
+
+    try {
+        const game = await gamesModel.createGame({
+            title,
+            steam_id,
+            developer,
+            release_date,
+            playtime,
+            status,
+            ...(cover_square !== undefined && { cover_square }),
+            ...(cover_hero !== undefined && { cover_hero }),
+            ...(cover_grid !== undefined && { cover_grid }),
+            ...(personal_rating !== undefined && { personal_rating })
+        });
+
+        if (!game) {
+            return res.status(500).json({ error: "Erro ao criar jogo." });
+        }
+
+        return res.status(201).json(game);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "Erro interno do servidor." });
+    }
+});
+
 router.get('/', async function (req: Request, res: Response) {
     const { id, steam_id } = req.query;
 
@@ -25,7 +85,7 @@ router.get('/', async function (req: Request, res: Response) {
         }
 
         const games = await gamesModel.getAllGames();
-        if (!games) {
+        if (!games || games.length === 0) {
             return res.status(404).json({ message: "Nenhum jogo encontrado." });
         }
         return res.status(200).json(games);
