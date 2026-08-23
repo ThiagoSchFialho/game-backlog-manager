@@ -25,6 +25,21 @@ router.post('/', async function (req: Request, res: Response) {
     }
 });
 
+router.get('/with-games', async function (req: Request, res: Response) {
+    try {
+        const collections = await collectionsModel.getAllCollectionsWithGames();
+
+        if (!collections?.length) {
+            return res.status(404).json({ message: "Nenhuma coleção encontrada." });
+        }
+
+        return res.status(200).json(collections);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "Erro interno do servidor." });
+    }
+});
+
 router.get('/', async function (req: Request, res: Response) {
     try {
         const collections = await collectionsModel.getAllCollections();
