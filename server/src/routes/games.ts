@@ -31,13 +31,13 @@ router.post('/', async function (req: Request, res: Response) {
         personal_rating
     }: CreateGameInput = req.body;
 
-    const requiredFields = [ title, steam_id, developer, release_date, playtime, status ];
+    const requiredFields: Record<string, unknown> = { title, steam_id, developer, release_date, playtime, status };
 
-    requiredFields.forEach((atribute) => {
-        if (!atribute) {
-            res.status(400).json({ error: `${atribute} não informado.` });
+    for (const [field, value] of Object.entries(requiredFields)) {
+        if (!value) {
+            return res.status(400).json({ error: `${field} não informado.` });
         }
-    });
+    }
 
     try {
         const game = await gamesModel.createGame({
@@ -90,6 +90,65 @@ router.get('/', async function (req: Request, res: Response) {
         }
         return res.status(200).json(games);
 
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "Erro interno do servidor." });
+    }
+});
+
+router.put('/:id', async function (req: Request, res: Response) {
+    const { id } = req.params;
+    
+    if (!id) {
+        return res.status(400).json({ error: "Id não informado." });
+    }
+
+    const {
+        title,
+        steam_id,
+        developer,
+        release_date,
+        playtime,
+        status,
+        cover_square,
+        cover_hero,
+        cover_grid,
+        personal_rating
+    }: CreateGameInput = req.body;
+
+    const requiredFields: Record<string, unknown> = { title, steam_id, developer, release_date, playtime, status };
+
+    for (const [field, value] of Object.entries(requiredFields)) {
+        if (!value) {
+            return res.status(400).json({ error: `${field} não informado.` });
+        }
+    }
+
+    try {
+        const game = await gamesModel.getGameById(Number(id));
+
+        if (!game) {
+            return res.status(404).json({ message: "Jogo encontrado." });
+        }
+
+        const updatedGame = await gamesModel.updateGame(Number(id), {
+            title,
+            steam_id,
+            developer,
+            release_date,
+            playtime,
+            status,
+            ...(cover_square !== undefined && { cover_square }),
+            ...(cover_hero !== undefined && { cover_hero }),
+            ...(cover_grid !== undefined && { cover_grid }),
+            ...(personal_rating !== undefined && { personal_rating })
+        });
+
+        if (!updatedGame) {
+            return res.status(500).json({ error: "Erro ao atualizar jogo." });
+        }
+
+        return res.status(201).json(updatedGame);
     } catch (error) {
         console.error(error);
         return res.status(500).json({ error: "Erro interno do servidor." });
