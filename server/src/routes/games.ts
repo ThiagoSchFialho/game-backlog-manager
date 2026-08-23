@@ -96,4 +96,25 @@ router.get('/', async function (req: Request, res: Response) {
     }
 });
 
+router.delete('/:id', async function (req: Request, res: Response) {
+    const { id } = req.params;
+
+    if (!id) {
+        return res.status(400).json({ error: "Id não informado." });
+    }
+
+    try {
+        const game = await gamesModel.deleteGame(Number(id));
+
+        if (!game) {
+            return res.status(500).json({ erro: "Erro ao excluir o jogo." });
+        }
+
+        return res.status(200).json(game);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "Erro interno do servidor." });
+    }
+});
+
 export default router;
