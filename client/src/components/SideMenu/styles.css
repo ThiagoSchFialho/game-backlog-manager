@@ -1,0 +1,62 @@
+.side-menu-container {
+    padding: 30px 20px;
+    width: fit-content;
+    background-color: var(--bg-primary);
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    border-bottom-right-radius: 10px;
+}
+
+.pages-section {
+    margin-bottom: 30px;
+}
+
+.side-menu-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.side-menu-list li {
+    padding: 7px 20px;
+    width: 270px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 7px;
+}
+
+.side-menu-list li p {
+    color: var(--text-secondary);
+}
+
+.selected {
+    background-color: var(--primary);
+}
+
+.side-menu-list li.selected p {
+    color: var(--text-primary);
+}
+
+hr {
+    border: 1px solid var(--border);
+}
+
+.collection-section {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.collection-section h1 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+.footer-section {
+    margin-top: 20px;
+}

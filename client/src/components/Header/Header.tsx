@@ -1,7 +1,7 @@
 import './styles.css';
 import logo from '../../assets/GAME BACKLOG logo.svg';
-import searchIcon from '../../assets/search.svg';
-import steamIcon from '../../assets/steam.svg';
+import searchIcon from '../../assets/icons/search.svg';
+import steamIcon from '../../assets/icons/steam.svg';
 
 interface HeaderProps {
     steamApiConnected: boolean;
