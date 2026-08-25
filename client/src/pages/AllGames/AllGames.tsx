@@ -3,16 +3,16 @@ import './styles.css';
 import Header from '../../components/Header/Header';
 import SideMenu from '../../components/SideMenu/SideMenu';
 
-const Home: React.FC = () => {
+const AllGames: React.FC = () => {
     const [steamApiConnected, setSteamApiConnected] = useState(false);
-    const [selected, setSelected] = useState('home');
+    const [currentPage, setCurrentPage] = useState('allGames');
 
     return (
         <>
             <Header steamApiConnected={steamApiConnected} />
-            <SideMenu currentPage={selected} />
+            <SideMenu currentPage={currentPage} />
         </>
     )
 }
 
-export default Home;
+export default AllGames;
