@@ -1,4 +1,5 @@
 CREATE TABLE users (
+    id BIGSERIAL PRIMARY KEY,
     steam_id BIGINT PRIMARY KEY,
     steam_api_key TEXT
 );
