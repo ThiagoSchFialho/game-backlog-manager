@@ -14,12 +14,14 @@ import heartSelected from '../../assets/icons/heart-selected.svg';
 import checkSelected from '../../assets/icons/check-selected.svg';
 import listSelected from '../../assets/icons/list-selected.svg';
 import folderSelected from '../../assets/icons/folder-selected.svg';
+import { useNavigate } from 'react-router-dom';
 
 interface SideMenuProps {
     currentPage: string;
 }
 
 const SideMenu = ({currentPage}: SideMenuProps) => {
+    const navigation = useNavigate();
     const [selected, setSelected] = useState('');
 
     useEffect(() => {
@@ -31,24 +33,24 @@ const SideMenu = ({currentPage}: SideMenuProps) => {
             <div className="side-menu-container">
                 <div className="pages-section">
                     <ul className="side-menu-list">
-                        <li onClick={() => setSelected('home')} className={selected === 'home' ? 'selected' : ''}>
+                        <li onClick={() => navigation('/')} className={selected === 'home' ? 'selected' : ''}>
                             <img src={selected == 'home' ? homeSelected : home} alt="casa" />
                             <p>Inicio</p>
                         </li>
-                        <li onClick={() => setSelected('gamepad')} className={selected === 'gamepad' ? 'selected' : ''}>
-                            <img src={selected == 'gamepad' ? gamepadSelected : gamepad} alt="joystick" />
+                        <li onClick={() => navigation('/allGames')} className={selected === 'allGames' ? 'selected' : ''}>
+                            <img src={selected == 'allGames' ? gamepadSelected : gamepad} alt="joystick" />
                             <p>Todos os Jogos</p>
                         </li>
-                        <li onClick={() => setSelected('heart')} className={selected === 'heart' ? 'selected' : ''}>
-                            <img src={selected == 'heart' ? heartSelected : heart} alt="coração" />
+                        <li onClick={() => navigation('/favorites')} className={selected === 'favorites' ? 'selected' : ''}>
+                            <img src={selected == 'favorites' ? heartSelected : heart} alt="coração" />
                             <p>Favoritos</p>
                         </li>
-                        <li onClick={() => setSelected('check')} className={selected === 'check' ? 'selected' : ''}>
-                            <img src={selected == 'check' ? checkSelected : check} alt="verificado" />
+                        <li onClick={() => navigation('/beated')} className={selected === 'beated' ? 'selected' : ''}>
+                            <img src={selected == 'beated' ? checkSelected : check} alt="verificado" />
                             <p>Zerados</p>
                         </li>
-                        <li onClick={() => setSelected('list')} className={selected === 'list' ? 'selected' : ''}>
-                            <img src={selected == 'list' ? listSelected : list} alt="lista" />
+                        <li onClick={() => navigation('/backlog')} className={selected === 'backlog' ? 'selected' : ''}>
+                            <img src={selected == 'backlog' ? listSelected : list} alt="lista" />
                             <p>Backlog</p>
                         </li>
                     </ul>
@@ -59,7 +61,7 @@ const SideMenu = ({currentPage}: SideMenuProps) => {
                 <div className="collection-section">
                     <h1>Coleções</h1>
                     <ul className="side-menu-list">
-                        <li onClick={() => setSelected('folder')} className={selected === 'folder' ? 'selected' : ''}>
+                        <li onClick={() => navigation('folder')} className={selected === 'folder' ? 'selected' : ''}>
                             <img src={selected == 'folder' ? folderSelected : folder} alt="pasta" />
                             <p>Coleção</p>
                         </li>
@@ -70,11 +72,11 @@ const SideMenu = ({currentPage}: SideMenuProps) => {
 
                 <div className="footer-section">
                     <ul className="side-menu-list">
-                        <li onClick={() => setSelected('settings')} className={selected === 'settings' ? 'selected' : ''}>
+                        <li onClick={() => navigation('settings')} className={selected === 'settings' ? 'selected' : ''}>
                             <img src={settings} alt="configurações" />
                             <p>Configurações</p>
                         </li>
-                        <li onClick={() => setSelected('help')} className={selected === 'help' ? 'selected' : ''}>
+                        <li onClick={() => navigation('help')} className={selected === 'help' ? 'selected' : ''}>
                             <img src={help} alt="ajuda" />
                             <p>Ajuda</p>
                         </li>
