@@ -1,0 +1,52 @@
+
+.game-card {
+    width: 100%;
+    max-width: 277px;
+    background-color: var(--bg-card-secondary);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}
+
+.game-img {
+    width: 277px;
+    border-radius: 10px;
+    cursor: pointer; 
+}
+
+.game-card-info{
+    height: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px 15px;
+}
+
+.game-card-info h1 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.game-footer-info-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.game-status-container {
+    display: flex;
+    gap: 5px
+}
+
+.game-status {
+    width: 20px;
+}
+
+.game-status-container p {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--success);
+}
+
+.playtime-container {
+    display: flex;
+    gap: 5px
+}

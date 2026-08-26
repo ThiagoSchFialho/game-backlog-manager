@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './styles.css';
 import home from '../../assets/icons/home.svg';
 import gamepad from '../../assets/icons/gamepad.svg';
@@ -20,7 +20,7 @@ interface SideMenuProps {
     currentPage: string;
 }
 
-const SideMenu = ({currentPage}: SideMenuProps) => {
+const SideMenu: React.FC<SideMenuProps> = ({currentPage}) => {
     const navigation = useNavigate();
     const [selected, setSelected] = useState('');
 

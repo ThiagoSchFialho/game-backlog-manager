@@ -1,3 +1,4 @@
+import React from 'react';
 import './styles.css';
 import logo from '../../assets/GAME BACKLOG logo.svg';
 import searchIcon from '../../assets/icons/search.svg';
@@ -8,7 +9,7 @@ interface HeaderProps {
     steamApiConnected: boolean;
 }
 
-const Header = ({steamApiConnected}: HeaderProps) => {
+const Header: React.FC<HeaderProps> = ({steamApiConnected}) => {
     const navigation = useNavigate();
 
     return (

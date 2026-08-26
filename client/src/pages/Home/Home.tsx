@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './styles.css';
 import Header from '../../components/Header/Header';
 import SideMenu from '../../components/SideMenu/SideMenu';
+import GameCard from '../../components/GameCard/GameCard';
+
 import gamepadInfo from '../../assets/icons/gamepad-info.svg';
 import checkInfo from '../../assets/icons/check-info.svg';
 import playInfo from '../../assets/icons/play-info.svg';
@@ -12,9 +14,6 @@ import img1 from '../../assets/1.jpg';
 import img2 from '../../assets/2.jpg';
 import img3 from '../../assets/3.jpg';
 import img4 from '../../assets/4.jpg';
-
-import playing from '../../assets/icons/playing.svg';
-import clock from '../../assets/icons/clock.svg';
 
 const Home: React.FC = () => {
     const [steamApiConnected, setSteamApiConnected] = useState(false);
@@ -81,70 +80,30 @@ const Home: React.FC = () => {
                             <p>Ver todos</p>
                         </div>
                         <div className="game-cards-container">
-                            <div className="game-card">
-                                <img className="game-img" src={img1} alt="" />
-                                <div className="game-card-info">
-                                    <h1>Forza Horizon 5</h1>
-                                    <div className="game-footer-info-container">
-                                        <div className="game-status-container">
-                                            <img className="game-status" src={playing} alt="play" />
-                                            <p>Jogando</p>
-                                        </div>
-                                        <div className="playtime-container">
-                                            <img className="playtime-icon" src={clock} alt="relógio" />
-                                            <p>28h</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="game-card">
-                                <img className="game-img" src={img2} alt="" />
-                                <div className="game-card-info">
-                                    <h1>Assassin's Creed III</h1>
-                                    <div className="game-footer-info-container">
-                                        <div className="game-status-container">
-                                            <img className="game-status" src={playing} alt="play" />
-                                            <p>Jogando</p>
-                                        </div>
-                                        <div className="playtime-container">
-                                            <img className="playtime-icon" src={clock} alt="relógio" />
-                                            <p>28h</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="game-card">
-                                <img className="game-img" src={img3} alt="" />
-                                <div className="game-card-info">
-                                    <h1>Minecraft</h1>
-                                    <div className="game-footer-info-container">
-                                        <div className="game-status-container">
-                                            <img className="game-status" src={playing} alt="play" />
-                                            <p>Jogando</p>
-                                        </div>
-                                        <div className="playtime-container">
-                                            <img className="playtime-icon" src={clock} alt="relógio" />
-                                            <p>28h</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="game-card">
-                                <img className="game-img" src={img4} alt="" />
-                                <div className="game-card-info">
-                                    <h1>DOOM The Dark Ages Definitive Edition</h1>
-                                    <div className="game-footer-info-container">
-                                        <div className="game-status-container">
-                                            <img className="game-status" src={playing} alt="play" />
-                                            <p>Jogando</p>
-                                        </div>
-                                        <div className="playtime-container">
-                                            <img className="playtime-icon" src={clock} alt="relógio" />
-                                            <p>28h</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <GameCard
+                                img={img1}
+                                name="Forza Horizon 5"
+                                status="playing"
+                                playtime={28}
+                            />
+                            <GameCard
+                                img={img2}
+                                name="Assassin's Creed III"
+                                status="playing"
+                                playtime={12}
+                            />
+                            <GameCard
+                                img={img3}
+                                name="Minecraft"
+                                status="playing"
+                                playtime={96}
+                            />
+                            <GameCard
+                                img={img4}
+                                name="DOOM The Dark Ages Defintive Edition"
+                                status="playing"
+                                playtime={14}
+                            />
                         </div>
                     </div>
                     
