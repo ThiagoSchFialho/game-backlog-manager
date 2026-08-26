@@ -2,16 +2,19 @@ import './styles.css';
 import logo from '../../assets/GAME BACKLOG logo.svg';
 import searchIcon from '../../assets/icons/search.svg';
 import steamIcon from '../../assets/icons/steam.svg';
+import { useNavigate } from 'react-router-dom';
 
 interface HeaderProps {
     steamApiConnected: boolean;
 }
 
 const Header = ({steamApiConnected}: HeaderProps) => {
+    const navigation = useNavigate();
+
     return (
         <>
             <div className="header">
-                <img src={logo} alt="game backlog manager logo" />
+                <img onClick={() => navigation('/')} className="logo" src={logo} alt="game backlog manager logo" />
                 <div className="search-bar-container">
                     <img src={searchIcon} alt="icone de pesquisa" />
                     <input className="search-input" type="text" name="search" id="search" placeholder="Pesquisar jogos, desenvolvedoras, tags..." />
