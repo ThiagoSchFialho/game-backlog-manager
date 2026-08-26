@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import './styles.css';
 import Header from '../../components/Header/Header';
 import SideMenu from '../../components/SideMenu/SideMenu';
+import gamepadInfo from '../../assets/icons/gamepad-info.svg';
+import checkInfo from '../../assets/icons/check-info.svg';
+import playInfo from '../../assets/icons/play-info.svg';
+import clockInfo from '../../assets/icons/clock-info.svg';
+import sync from '../../assets/icons/sync.svg';
 
 const Home: React.FC = () => {
     const [steamApiConnected, setSteamApiConnected] = useState(false);
@@ -10,7 +15,60 @@ const Home: React.FC = () => {
     return (
         <>
             <Header steamApiConnected={steamApiConnected} />
-            <SideMenu currentPage={selected} />
+            <div className="main-container">
+                <SideMenu currentPage={selected} />
+                <div className="main-content">
+                    <div className="content-header">
+                        <div className="content-header-text">
+                            <h1>Bem vindo, Thiago!</h1>
+                            <p>Aqui está um resumo dos jogos na sua biblioteca</p>
+                        </div>
+                        <div className="sync-steam-btn-container">
+                            <img src={sync} alt="sincronizar" />
+                            <button className="sync-steam-btn">Sincronizar Steam</button>
+                        </div>
+                    </div>
+                    <div className="info-cards-container">
+                        <div className="info-card background-blue">
+                            <div className="info-icon-container blue">
+                                <img src={gamepadInfo} alt="joystick" />
+                            </div>
+                            <div className="info-card-text-container blue-text">
+                                <h1 className="info-card-title">127</h1>
+                                <p className="info-card-text">Jogos Adiquiridos</p>
+                            </div>
+                        </div>
+                        <div className="info-card background-green">
+                            <div className="info-icon-container green">
+                                <img src={checkInfo} alt="verificado" />
+                            </div>
+                            <div className="info-card-text-container green-text">
+                                <h1 className="info-card-title">38</h1>
+                                <p className="info-card-text">Jogos Zerados</p>
+                            </div>
+                        </div>
+                        <div className="info-card background-purple">
+                            <div className="info-icon-container purple">
+                                <img src={playInfo} alt="play" />
+                            </div>
+                            <div className="info-card-text-container purple-text">
+                                <h1 className="info-card-title">18</h1>
+                                <p className="info-card-text">Jogando Agora</p>
+                            </div>
+                        </div>
+                        <div className="info-card background-yellow">
+                            <div className="info-icon-container yellow">
+                                <img src={clockInfo} alt="relógio" />
+                            </div>
+                            <div className="info-card-text-container yellow-text">
+                                <h1 className="info-card-title">421h</h1>
+                                <p className="info-card-text">Horas Jogadas</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
         </>
     )
 }

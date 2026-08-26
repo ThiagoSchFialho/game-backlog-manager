@@ -1,3 +1,117 @@
 body {
     background-color: var(--bg-secondary);
 }
+
+.main-container {
+    display: flex;
+}
+
+.main-content {
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.content-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.content-header-text h1 {
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.content-header-text p {
+    color: var(--text-secondary);
+}
+
+.sync-steam-btn-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--primary);
+    border-radius: 5px;
+    padding: 10px 30px;
+}
+
+.sync-steam-btn {
+    background-color: var(--primary);
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+}
+
+.info-cards-container {
+    display: flex;
+    gap: 20px;
+}
+
+.info-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 290px;
+    height: 85px;
+    padding: 15px 20px;
+    background-color: red;
+    border-radius: 10px;
+}
+
+.background-blue{
+    background-color: rgba(83, 159, 233, 0.2);
+    border: 1px solid rgba(83, 159, 233, 0.5);
+}
+.background-green{
+    background-color: rgba(31, 192, 109, 0.2);
+    border: 1px solid rgba(31, 192, 109, 0.5);
+}
+.background-purple{
+    background-color: rgba(123, 92, 255, 0.2);
+    border: 1px solid rgba(123, 92, 255, 0.5);
+}
+.background-yellow{
+    background-color: rgba(212, 172, 39, 0.2);
+    border: 1px solid rgba(212, 172, 39, 0.5);
+}
+
+.info-icon-container {
+    padding: 8px;
+    border-radius: 15px;
+}
+
+.blue{
+    background-color: rgba(83, 159, 233, 0.4);
+}
+.green{
+    background-color: rgba(31, 192, 109, 0.4);
+}
+.purple{
+    background-color: rgba(123, 92, 255, 0.4);
+}
+.yellow{
+    background-color: rgba(212, 172, 39, 0.4);
+}
+
+.info-card-title {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.info-card-text {
+    font-size: 14px;
+}
+
+.blue-text p {
+    color: var(--info);
+}
+.green-text p {
+    color: var(--success);
+}
+.purple-text p {
+    color: var(--primary-light);
+}
+.yellow-text p {
+    color: var(--warning);
+}
