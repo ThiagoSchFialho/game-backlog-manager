@@ -1,6 +1,7 @@
 .side-menu-container {
     padding: 30px 20px;
     width: fit-content;
+    height: fit-content;
     background-color: var(--bg-primary);
     border-right: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
