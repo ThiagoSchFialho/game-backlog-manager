@@ -6,6 +6,7 @@
     height: 90px;
     background-color: var(--bg-primary);
     border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow);
 }
 
 .logo {
