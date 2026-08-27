@@ -45,8 +45,8 @@ const SideMenu: React.FC<SideMenuProps> = ({currentPage}) => {
                             <img src={selected == 'favorites' ? heartSelected : heart} alt="coração" />
                             <p>Favoritos</p>
                         </li>
-                        <li onClick={() => navigation('/beated')} className={selected === 'beated' ? 'selected' : ''}>
-                            <img src={selected == 'beated' ? checkSelected : check} alt="verificado" />
+                        <li onClick={() => navigation('/completed')} className={selected === 'completed' ? 'selected' : ''}>
+                            <img src={selected == 'completed' ? checkSelected : check} alt="verificado" />
                             <p>Zerados</p>
                         </li>
                         <li onClick={() => navigation('/backlog')} className={selected === 'backlog' ? 'selected' : ''}>

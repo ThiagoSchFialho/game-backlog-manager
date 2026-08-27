@@ -201,7 +201,7 @@ body {
 .playing {
     color: var(--success);
 }
-.beated {
+.completed {
     color: var(--primary-light);
 }
 
