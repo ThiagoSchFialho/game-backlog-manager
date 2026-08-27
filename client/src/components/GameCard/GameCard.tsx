@@ -3,6 +3,7 @@ import './styles.css';
 import playing from '../../assets/icons/playing.svg';
 import played from '../../assets/icons/played.svg';
 import notPlayed from '../../assets/icons/not-played.svg';
+import completed from '../../assets/icons/completed.svg';
 import clock from '../../assets/icons/clock.svg';
 
 interface GameCardsProps {
@@ -16,10 +17,10 @@ const statusConfig = {
     playing: { icon: playing, label: 'Jogando' },
     played: { icon: played, label: 'Jogado' },
     'not-played': { icon: notPlayed, label: 'Não jogado' },
-    completed: { icon: played, label: 'Completo' },
+    completed: { icon: completed, label: 'Zerado' },
 };
 
-const GameCard = ({ img, name, status, playtime }: GameCardsProps) => {
+const GameCard: React.FC<GameCardsProps> = ({ img, name, status, playtime }) => {
     const currentStatus = statusConfig[status];
 
     return (
@@ -30,7 +31,7 @@ const GameCard = ({ img, name, status, playtime }: GameCardsProps) => {
                 <div className="game-footer-info-container">
                     <div className="game-status-container">
                         <img className="game-status" src={currentStatus.icon} alt={currentStatus.label} />
-                        <p>{currentStatus.label}</p>
+                        <p className={status}>{currentStatus.label}</p>
                     </div>
                     <div className="playtime-container">
                         <img className="playtime-icon" src={clock} alt="relógio" />

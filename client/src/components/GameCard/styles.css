@@ -1,14 +1,13 @@
 
 .game-card {
-    width: 100%;
-    max-width: 277px;
+    max-width: 280px;
     background-color: var(--bg-card-secondary);
     border: 1px solid var(--border);
     border-radius: 10px;
 }
 
 .game-img {
-    width: 277px;
+    width: 278px;
     border-radius: 10px;
     cursor: pointer; 
 }
@@ -43,7 +42,22 @@
 .game-status-container p {
     font-size: 16px;
     font-weight: 500;
+}
+
+.playing {
     color: var(--success);
+}
+
+.played {
+    color: var(--info);
+}
+
+.not-played {
+    color: var(--warning);
+}
+
+.completed {
+    color: var(--primary-light);
 }
 
 .playtime-container {

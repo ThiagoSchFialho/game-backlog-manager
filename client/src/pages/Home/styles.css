@@ -123,10 +123,12 @@ body {
 
 
 .playing-now-container {
+    width: 100%;
     background-color: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: 20px;
     padding: 15px 20px 20px 20px;
+    margin-bottom: 30px;
 }
 
 .playing-now-header {
@@ -151,5 +153,92 @@ body {
 .game-cards-container {
     display: flex;
     justify-content: space-between;
-    gap: 20px;
+}
+
+.backlog-overview-container {
+    width: 100%;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 15px 20px 20px 20px;
+}
+
+.backlog-overview-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.overview-lists-container {
+    display: flex;
+    gap: 22px;
+}
+
+.overview-list {
+    flex: 1;
+    padding: 15px;
+    background-color: var(--bg-card-secondary);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}
+
+.overview-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.overview-header h1 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.not-played {
+    color: var(--warning);
+}
+.playing {
+    color: var(--success);
+}
+.beated {
+    color: var(--primary-light);
+}
+
+.overview-header p {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--info);
+}
+
+.overview ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.overview ul li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.overview .game-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    background-color: red;
+}
+
+.overview .game-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.overview .aditional-text {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-secondary);
 }

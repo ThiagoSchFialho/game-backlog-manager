@@ -25,6 +25,7 @@ const Home: React.FC = () => {
             <div className="main-container">
                 <SideMenu currentPage={selected} />
                 <div className="main-content">
+
                     <div className="content-header">
                         <div className="content-header-text">
                             <h1>Bem vindo, Thiago!</h1>
@@ -35,6 +36,7 @@ const Home: React.FC = () => {
                             <div className="sync-steam-btn">Sincronizar Steam</div>
                         </div>
                     </div>
+
                     <div className="info-cards-container">
                         <div className="info-card background-blue">
                             <div className="info-icon-container blue">
@@ -107,6 +109,125 @@ const Home: React.FC = () => {
                         </div>
                     </div>
                     
+                    <div className="backlog-overview-container">
+                        <h1 className="backlog-overview-title">Backlog</h1>
+                        <div className="overview-lists-container">
+                            <div className="overview-list">
+                                <div className="overview-header">
+                                    <h1 className="not-played">Não jogados <span>(10)</span></h1>
+                                    <p>Ver todos</p>
+                                </div>
+                                <div className="overview">
+                                   <ul>
+                                        <li>
+                                            <div className="game-icon"></div>
+                                            <div>
+                                                <h1 className="game-title">Elden Ring</h1>
+                                                <p className="aditional-text">RPG - Action</p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="game-icon"></div>
+                                            <div>
+                                                <h1 className="game-title">Elden Ring</h1>
+                                                <p className="aditional-text">RPG - Action</p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="game-icon"></div>
+                                            <div>
+                                                <h1 className="game-title">Elden Ring</h1>
+                                                <p className="aditional-text">RPG - Action</p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="game-icon"></div>
+                                            <div>
+                                                <h1 className="game-title">Elden Ring</h1>
+                                                <p className="aditional-text">RPG - Action</p>
+                                            </div>
+                                        </li>
+                                   </ul>
+                                </div>
+                            </div>
+                            <div className="overview-list">
+                                <div className="overview-header">
+                                    <h1 className="playing">Jogados <span>(10)</span></h1>
+                                    <p>Ver todos</p>
+                                </div>
+                                <div className="overview">
+                                   <ul>
+                                        <li>
+                                            <div className="game-icon"></div>
+                                            <div>
+                                                <h1 className="game-title">Elden Ring</h1>
+                                                <p className="aditional-text">RPG - Action</p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="game-icon"></div>
+                                            <div>
+                                                <h1 className="game-title">Elden Ring</h1>
+                                                <p className="aditional-text">RPG - Action</p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="game-icon"></div>
+                                            <div>
+                                                <h1 className="game-title">Elden Ring</h1>
+                                                <p className="aditional-text">RPG - Action</p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="game-icon"></div>
+                                            <div>
+                                                <h1 className="game-title">Elden Ring</h1>
+                                                <p className="aditional-text">RPG - Action</p>
+                                            </div>
+                                        </li>
+                                   </ul>
+                                </div>
+                            </div>
+                            <div className="overview-list">
+                                <div className="overview-header">
+                                    <h1 className="beated">Zerados <span>(10)</span></h1>
+                                    <p>Ver todos</p>
+                                </div>
+                                <div className="overview">
+                                   <ul>
+                                        <li>
+                                            <div className="game-icon"></div>
+                                            <div>
+                                                <h1 className="game-title">Elden Ring</h1>
+                                                <p className="aditional-text">RPG - Action</p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="game-icon"></div>
+                                            <div>
+                                                <h1 className="game-title">Elden Ring</h1>
+                                                <p className="aditional-text">RPG - Action</p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="game-icon"></div>
+                                            <div>
+                                                <h1 className="game-title">Elden Ring</h1>
+                                                <p className="aditional-text">RPG - Action</p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="game-icon"></div>
+                                            <div>
+                                                <h1 className="game-title">Elden Ring</h1>
+                                                <p className="aditional-text">RPG - Action</p>
+                                            </div>
+                                        </li>
+                                   </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </>
