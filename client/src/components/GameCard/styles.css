@@ -1,6 +1,7 @@
 
 .game-card {
-    max-width: 250px;
+    width: 250px;
+    height: 364px;
     background-color: var(--bg-card-secondary);
     border: 1px solid var(--border);
     border-radius: 10px;

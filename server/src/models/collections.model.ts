@@ -3,7 +3,7 @@ import { ICollectionsModel } from "./interfaces/collections.interface.model";
 import pool from "../config/db.config";
 
 export interface CollectionWithGames extends Collections {
-    games: any[]; // ideal: trocar `any` pela interface Game, se você tiver uma
+    games: any[];
 }
 
 function dbError(context: string, error: unknown): Error {
