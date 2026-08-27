@@ -1,6 +1,6 @@
 
 .game-card {
-    max-width: 280px;
+    max-width: 250px;
     background-color: var(--bg-card-secondary);
     border: 1px solid var(--border);
     border-radius: 10px;
@@ -8,7 +8,7 @@
 }
 
 .game-img {
-    width: 278px;
+    width: 248px;
     border-radius: 10px;
     cursor: pointer; 
 }
@@ -22,7 +22,7 @@
 }
 
 .game-card-info h1 {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
 }
 
@@ -41,7 +41,7 @@
 }
 
 .game-status-container p {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 500;
 }
 

@@ -6,7 +6,7 @@ body {
     display: flex;
 }
 
-.main-content {
+.home-main-content {
     margin: 0 auto;
     padding: 20px 0 50px 0;
 }
@@ -153,7 +153,7 @@ body {
 
 .game-cards-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .backlog-overview-container {

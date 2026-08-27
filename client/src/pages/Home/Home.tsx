@@ -356,7 +356,7 @@ const Home: React.FC = () => {
             <Header steamApiConnected={steamApiConnected} />
             <div className="main-container">
                 <SideMenu currentPage={selected} />
-                <div className="main-content">
+                <div className="home-main-content">
 
                     <div className="content-header">
                         <div className="content-header-text">
@@ -418,25 +418,25 @@ const Home: React.FC = () => {
                                 img={img1}
                                 name="Forza Horizon 5"
                                 status="playing"
-                                playtime={28}
+                                playtime={1680}
                             />
                             <GameCard
                                 img={img2}
                                 name="Assassin's Creed III"
                                 status="playing"
-                                playtime={12}
+                                playtime={720}
                             />
                             <GameCard
                                 img={img3}
                                 name="Minecraft"
                                 status="playing"
-                                playtime={96}
+                                playtime={5760}
                             />
                             <GameCard
                                 img={img4}
                                 name="DOOM The Dark Ages Defintive Edition"
                                 status="playing"
-                                playtime={14}
+                                playtime={840}
                             />
                         </div>
                     </div>

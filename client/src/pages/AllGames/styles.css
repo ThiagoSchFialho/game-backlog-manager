@@ -1,0 +1,49 @@
+.main-container {
+    display: flex;
+    align-items: left;
+}
+
+.all-games-main-content {
+    width: 100%;
+    margin: 0;
+    padding: 20px 30px 50px 40px;
+}
+
+
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 110px;
+}
+
+.page-header .title {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 50px;
+}
+
+.page-header .div-center {
+    width: 360px;
+    display: flex;
+    justify-content: center;
+}
+
+.page-header .sync-steam-btn-container {
+    width: fit-content;
+}
+
+.game-filter-container {
+    display: flex;
+    padding-left: 20px;
+    justify-content: space-between;
+}
+
+.list-game-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    width: fit-content;
+    max-width: 1150px;
+}
+
