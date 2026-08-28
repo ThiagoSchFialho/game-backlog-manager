@@ -382,7 +382,7 @@ const gamesMock: Game[] = [
   },
   {
     "id": "27",
-    "title": "assassin's creed iii",
+    "title": "assassin's creed III",
     "steam_id": "276810",
     "cover_square": "",
     "cover_hero": "",

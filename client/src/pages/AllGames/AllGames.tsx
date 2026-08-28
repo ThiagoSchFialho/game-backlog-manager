@@ -75,15 +75,81 @@ const AllGames: React.FC = () => {
                 <div className="all-games-main-content">
                     <div className="page-header">
                         <h1 className="title">Todos os jogos</h1>
-                        <div className="div-center">
-                            <div className="sync-steam-btn-container">
-                                <img src={sync} alt="sincronizar" />
-                                <div className="sync-steam-btn">Sincronizar Steam</div>
-                            </div>
+                        <div className="sync-steam-btn-container">
+                            <img src={sync} alt="sincronizar" />
+                            <div className="sync-steam-btn">Sincronizar Steam</div>
                         </div>
                     </div>
 
                     <div className="game-filter-container">
+                        <div className="filters-container">
+                            <div className="filter-header">
+                                <h1>Filtros</h1>
+                                <p onClick={clearFilters} style={{ cursor: 'pointer' }}>Limpar filtros</p>
+                            </div>
+                            <form
+                                className="filter-form"
+                                onSubmit={(e) => e.preventDefault()}
+                            >
+                                <div className="filter-form-inputs">
+                                    <div className="filter-input-container">
+                                        <label>Status</label>
+                                        <select
+                                            value={statusFilter}
+                                            onChange={(e) => setStatusFilter(e.target.value)}
+                                        >
+                                            <option value="all">Todos</option>
+                                            <option value="not-played">Não jogado</option>
+                                            <option value="played">Jogado</option>
+                                            <option value="playing">Jogando</option>
+                                            <option value="completed">Zerado</option>
+                                        </select>
+                                    </div>
+
+                                    <div className="filter-input-container">
+                                        <label>Data de lançamento</label>
+                                        <select
+                                            value={yearFilter}
+                                            onChange={(e) => setYearFilter(e.target.value)}
+                                        >
+                                            <option value="all">Todos</option>
+                                            {Array.from(
+                                                { length: new Date().getFullYear() - 1990 + 1 },
+                                                (_, i) => new Date().getFullYear() - i
+                                            ).map((year) => (
+                                                <option key={year} value={year}>{year}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+
+                                    <div className="filter-input-container">
+                                        <label>Ordenar por:</label>
+                                        <select
+                                            value={sortBy}
+                                            onChange={(e) => setSortBy(e.target.value)}
+                                        >
+                                            <option value="nome">Nome</option>
+                                            <option value="status">Status</option>
+                                            <option value="playtime">Tempo de jogo</option>
+                                            <option value="developer">Desenvolvedora</option>
+                                            <option value="release_date">Data de lançamento</option>
+                                        </select>
+                                    </div>
+
+                                    <div className="filter-input-container">
+                                        <label>Direção</label>
+                                        <select
+                                            value={sortOrder}
+                                            onChange={(e) => setSortOrder(e.target.value as 'asc' | 'desc')}
+                                        >
+                                            <option value="asc">Crescente</option>
+                                            <option value="desc">Decrescente</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
                         <div className="list-game-container">
                             {filteredGames.map(game => (
                                 <GameCard
@@ -94,68 +160,6 @@ const AllGames: React.FC = () => {
                                     playtime={game.playtime}
                                 />
                             ))}
-                        </div>
-
-                        <div className="filters-container">
-                            <div className="filter-header">
-                                <h1>Filtros</h1>
-                                <p onClick={clearFilters} style={{ cursor: 'pointer' }}>Limpar filtros</p>
-                            </div>
-                            <form
-                                className="filter-form"
-                                onSubmit={(e) => e.preventDefault()}
-                            >
-
-                                <label>Status</label>
-                                <select
-                                    value={statusFilter}
-                                    onChange={(e) => setStatusFilter(e.target.value)}
-                                >
-                                    <option value="all">Todos</option>
-                                    <option value="not-played">Não jogado</option>
-                                    <option value="played">Jogado</option>
-                                    <option value="playing">Jogando</option>
-                                    <option value="completed">Zerado</option>
-                                </select>
-
-                                <label>Data de lançamento</label>
-                                <select
-                                    value={yearFilter}
-                                    onChange={(e) => setYearFilter(e.target.value)}
-                                >
-                                    <option value="all">Todos</option>
-                                    {Array.from(
-                                        { length: new Date().getFullYear() - 1990 + 1 },
-                                        (_, i) => new Date().getFullYear() - i
-                                    ).map((year) => (
-                                        <option key={year} value={year}>{year}</option>
-                                    ))}
-                                </select>
-
-                                <hr/>
-
-                                <label>Ordenar por:</label>
-                                <select
-                                    value={sortBy}
-                                    onChange={(e) => setSortBy(e.target.value)}
-                                >
-                                    <option value="nome">Nome</option>
-                                    <option value="status">Status</option>
-                                    <option value="playtime">Tempo de jogo</option>
-                                    <option value="developer">Desenvolvedora</option>
-                                    <option value="release_date">Data de lançamento</option>
-                                </select>
-
-                                <select
-                                    value={sortOrder}
-                                    onChange={(e) => setSortOrder(e.target.value as 'asc' | 'desc')}
-                                >
-                                    <option value="asc">Crescente</option>
-                                    <option value="desc">Decrescente</option>
-                                </select>
-
-                                <button type="submit">Aplicar Filtros</button>
-                            </form>
                         </div>
                     </div>
                 </div>
