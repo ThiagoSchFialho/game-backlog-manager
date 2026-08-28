@@ -13,7 +13,7 @@ export class GamesModel implements IGamesModel {
                 INSERT INTO games (
                     title, steam_id, developer, release_date,
                     playtime, status, cover_square, cover_hero,
-                    cover_grid, personal_rating
+                    cover_grid, personal_rating, favorite
                 )
                 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
                 RETURNING *;    
@@ -96,8 +96,8 @@ export class GamesModel implements IGamesModel {
                     cover_square = $8,
                     cover_hero = $9,
                     cover_grid = $10,
-                    personal_rating = $11
-                    favorite = %12
+                    personal_rating = $11,
+                    favorite = $12
                 WHERE id = $1
                 RETURNING *;
             `, [
