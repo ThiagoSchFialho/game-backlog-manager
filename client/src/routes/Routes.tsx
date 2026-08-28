@@ -3,6 +3,7 @@ import Home from '../pages/Home/Home';
 import AllGames from '../pages/AllGames/AllGames';
 import Favorites from '../pages/Favorites/Favorites';
 import Completed from '../pages/Completed/Completed';
+import Backlog from '../pages/Backlog/Backlog';
 
 const AppRoutes = () => {
     return (
@@ -12,6 +13,7 @@ const AppRoutes = () => {
                 <Route path='/allGames' element={<AllGames />} />
                 <Route path='/favorites' element={<Favorites />} />
                 <Route path='/completed' element={<Completed />} />
+                <Route path='/backlog' element={<Backlog />} />
             </Routes>
         </BrowserRouter>
     )
