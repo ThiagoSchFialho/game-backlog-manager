@@ -7,6 +7,7 @@ export interface IGames {
     cover_grid?: string;
     developer: string;
     release_date: string;
+    favorite: boolean;
     personal_rating?: number;
     playtime: number;
     status: string;

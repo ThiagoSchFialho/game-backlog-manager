@@ -15,7 +15,7 @@ export class GamesModel implements IGamesModel {
                     playtime, status, cover_square, cover_hero,
                     cover_grid, personal_rating
                 )
-                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
                 RETURNING *;    
             `, [
                 input.title,
@@ -27,7 +27,8 @@ export class GamesModel implements IGamesModel {
                 input.cover_square ?? null,
                 input.cover_hero ?? null,
                 input.cover_grid ?? null,
-                input.personal_rating ?? null
+                input.personal_rating ?? null,
+                input.favorite ?? false,
             ]);
 
             return result.rows[0];
@@ -96,6 +97,7 @@ export class GamesModel implements IGamesModel {
                     cover_hero = $9,
                     cover_grid = $10,
                     personal_rating = $11
+                    favorite = %12
                 WHERE id = $1
                 RETURNING *;
             `, [
@@ -109,7 +111,8 @@ export class GamesModel implements IGamesModel {
                 input.cover_square ?? null,
                 input.cover_hero ?? null,
                 input.cover_grid ?? null,
-                input.personal_rating ?? null
+                input.personal_rating ?? null,
+                input.favorite ?? false,
             ]);
 
             return result.rows[0];

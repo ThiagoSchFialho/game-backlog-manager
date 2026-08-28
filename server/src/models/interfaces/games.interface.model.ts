@@ -11,6 +11,7 @@ export interface CreateGameInput {
     cover_hero?: string | undefined;
     cover_grid?: string | undefined;
     personal_rating?: number | undefined;
+    favorite?: boolean | undefined;
 }
 
 export interface UpdateGameInput extends Partial<CreateGameInput> {}
