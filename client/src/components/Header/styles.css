@@ -5,7 +5,7 @@
     padding: 0 50px;
     height: 90px;
     background-color: var(--bg-primary);
-    border-bottom: 1px solid var(--border);
+    border-bottom: var(--border-primary);
     box-shadow: var(--shadow);
 }
 
@@ -19,7 +19,7 @@
     gap: 10px;
     padding: 10px 20px;
     background-color: var(--bg-secondary);
-    border: 1px solid var(--border);
+    border: var(--border-primary);
     border-radius: 10px;
 }
 

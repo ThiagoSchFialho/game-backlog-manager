@@ -3,8 +3,8 @@
     width: fit-content;
     height: fit-content;
     background-color: var(--bg-primary);
-    border-right: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
+    border-right: var(--border-primary);
+    border-bottom: var(--border-primary);
     border-bottom-right-radius: 10px;
 }
 
@@ -43,7 +43,7 @@
 }
 
 hr {
-    border: 1px solid var(--border);
+    border: var(--border-primary);
 }
 
 .collection-section {

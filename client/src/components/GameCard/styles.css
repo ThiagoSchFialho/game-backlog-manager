@@ -3,7 +3,7 @@
     width: 250px;
     height: 364px;
     background-color: var(--bg-card-secondary);
-    border: 1px solid var(--border);
+    border: var(--border-primary);
     border-radius: 10px;
     box-shadow: var(--shadow);
 }

@@ -42,7 +42,43 @@ const AllGames: React.FC = () => {
                         </div>
 
                         <div className="filters-container">
+                            <div className="filter-header">
+                                <h1>Filtros</h1>
+                                <p>Limpar filtros</p>
+                            </div>
+                            <form className="filter-form">
 
+                                <label>Status</label>
+                                <select>
+                                    <option value="all">Todos</option>
+                                    <option value="not-played">Não jogado</option>
+                                    <option value="played">Jogado</option>
+                                    <option value="playing">Jogando</option>                                    
+                                    <option value="completed">Zerado</option>
+                                </select>
+
+                                <label>Data de lançamento</label>
+                                <select>
+                                    <option value="all">Todos</option>
+                                    {Array.from({ length: new Date().getFullYear() - 1990 + 1 }, (_, i) => new Date().getFullYear() - i).map((year) => (
+                                        <option key={year} value={year}>{year}</option>
+                                    ))}
+                                </select>
+
+                                <hr/>
+
+                                <label>Ordenar por:</label>
+                                <select>
+                                    <option value="nome">Nome</option>
+                                    <option value="status">Status</option>
+                                    <option value="playtime">Tempo de jogo</option>                                    
+                                    <option value="genre">Gênero</option>
+                                    <option value="developer">Desenvolvedora</option>
+                                    <option value="release_date">Data de lançamento</option>
+                                </select>
+
+                                <button type="submit">Aplicar Filtros</button>
+                            </form>
                         </div>
                     </div>
                 </div>

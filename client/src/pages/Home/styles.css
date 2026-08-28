@@ -125,7 +125,7 @@ body {
 .playing-now-container {
     width: 100%;
     background-color: var(--bg-card);
-    border: 1px solid var(--border);
+    border: var(--border-primary);
     border-radius: 20px;
     padding: 15px 20px 20px 20px;
     margin-bottom: 30px;
@@ -159,7 +159,7 @@ body {
 .backlog-overview-container {
     width: 100%;
     background-color: var(--bg-card);
-    border: 1px solid var(--border);
+    border: var(--border-primary);
     border-radius: 20px;
     padding: 15px 20px 20px 20px;
     box-shadow: var(--shadow);
@@ -180,7 +180,7 @@ body {
     flex: 1;
     padding: 15px;
     background-color: var(--bg-card-secondary);
-    border: 1px solid var(--border);
+    border: var(--border-primary);
     border-radius: 10px;
     box-shadow: var(--shadow);
 }
