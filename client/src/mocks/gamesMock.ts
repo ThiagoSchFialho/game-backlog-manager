@@ -9,6 +9,7 @@ interface Game {
     cover_grid: string;
     developer: string;
     release_date: string;
+    favorite: boolean;
     personal_rating: number;
     playtime: number;
     status: GameStatus;
@@ -26,7 +27,8 @@ const gamesMock: Game[] = [
     "release_date": "2004-11-16T03:00:00.000Z",
     "personal_rating": 5,
     "playtime": 840,
-    "status": "completed"
+    "status": "completed",
+    "favorite": false
   },
   {
     "id": "2",
@@ -39,7 +41,8 @@ const gamesMock: Game[] = [
     "release_date": "2007-10-10T03:00:00.000Z",
     "personal_rating": 5,
     "playtime": 231,
-    "status": "completed"
+    "status": "completed",
+    "favorite": false
   },
   {
     "id": "3",
@@ -52,7 +55,8 @@ const gamesMock: Game[] = [
     "release_date": "2011-04-18T03:00:00.000Z",
     "personal_rating": 5,
     "playtime": 510,
-    "status": "completed"
+    "status": "completed",
+    "favorite": false
   },
   {
     "id": "4",
@@ -65,7 +69,8 @@ const gamesMock: Game[] = [
     "release_date": "2017-02-24T03:00:00.000Z",
     "personal_rating": 5,
     "playtime": 0,
-    "status": "not-played"
+    "status": "not-played",
+    "favorite": false
   },
   {
     "id": "5",
@@ -78,7 +83,8 @@ const gamesMock: Game[] = [
     "release_date": "2015-05-18T03:00:00.000Z",
     "personal_rating": 5,
     "playtime": 7400,
-    "status": "completed"
+    "status": "completed",
+    "favorite": false
   },
   {
     "id": "6",
@@ -91,7 +97,8 @@ const gamesMock: Game[] = [
     "release_date": "2020-12-10T03:00:00.000Z",
     "personal_rating": 4,
     "playtime": 4120,
-    "status": "played"
+    "status": "played",
+    "favorite": true
   },
   {
     "id": "7",
@@ -104,7 +111,8 @@ const gamesMock: Game[] = [
     "release_date": "2018-01-25T03:00:00.000Z",
     "personal_rating": 5,
     "playtime": 0,
-    "status": "not-played"
+    "status": "not-played",
+    "favorite": true
   },
   {
     "id": "8",
@@ -117,7 +125,8 @@ const gamesMock: Game[] = [
     "release_date": "2022-02-25T03:00:00.000Z",
     "personal_rating": 5,
     "playtime": 6800,
-    "status": "played"
+    "status": "played",
+    "favorite": true
   },
   {
     "id": "9",
@@ -130,7 +139,8 @@ const gamesMock: Game[] = [
     "release_date": "2016-02-26T03:00:00.000Z",
     "personal_rating": 4,
     "playtime": 0,
-    "status": "not-played"
+    "status": "not-played",
+    "favorite": false
   },
   {
     "id": "10",
@@ -143,7 +153,8 @@ const gamesMock: Game[] = [
     "release_date": "2020-09-17T03:00:00.000Z",
     "personal_rating": 5,
     "playtime": 2890,
-    "status": "completed"
+    "status": "completed",
+    "favorite": false
   },
   {
     "id": "11",
@@ -156,7 +167,8 @@ const gamesMock: Game[] = [
     "release_date": "2022-01-14T03:00:00.000Z",
     "personal_rating": 5,
     "playtime": 3600,
-    "status": "completed"
+    "status": "completed",
+    "favorite": true
   },
   {
     "id": "12",
@@ -169,7 +181,8 @@ const gamesMock: Game[] = [
     "release_date": "2023-03-24T03:00:00.000Z",
     "personal_rating": 5,
     "playtime": 1450,
-    "status": "completed"
+    "status": "completed",
+    "favorite": true
   },
   {
     "id": "13",
@@ -182,7 +195,8 @@ const gamesMock: Game[] = [
     "release_date": "2019-05-28T03:00:00.000Z",
     "personal_rating": 5,
     "playtime": 980,
-    "status": "completed"
+    "status": "completed",
+    "favorite": false
   },
   {
     "id": "14",
@@ -195,7 +209,8 @@ const gamesMock: Game[] = [
     "release_date": "2019-10-15T03:00:00.000Z",
     "personal_rating": 5,
     "playtime": 1620,
-    "status": "completed"
+    "status": "completed",
+    "favorite": false
   },
   {
     "id": "15",
@@ -208,7 +223,8 @@ const gamesMock: Game[] = [
     "release_date": "2023-01-25T03:00:00.000Z",
     "personal_rating": 4,
     "playtime": 720,
-    "status": "completed"
+    "status": "completed",
+    "favorite": false
   },
   {
     "id": "16",
@@ -221,7 +237,8 @@ const gamesMock: Game[] = [
     "release_date": "2023-08-03T03:00:00.000Z",
     "personal_rating": 5,
     "playtime": 5200,
-    "status": "played"
+    "status": "played",
+    "favorite": true
   },
   {
     "id": "17",
@@ -234,7 +251,8 @@ const gamesMock: Game[] = [
     "release_date": "2019-12-05T03:00:00.000Z",
     "personal_rating": 5,
     "playtime": 3100,
-    "status": "played"
+    "status": "played",
+    "favorite": true
   },
   {
     "id": "18",
@@ -247,7 +265,8 @@ const gamesMock: Game[] = [
     "release_date": "2018-08-09T03:00:00.000Z",
     "personal_rating": 4,
     "playtime": 8900,
-    "status": "played"
+    "status": "played",
+    "favorite": false
   },
   {
     "id": "19",
@@ -260,7 +279,8 @@ const gamesMock: Game[] = [
     "release_date": "2022-10-21T03:00:00.000Z",
     "personal_rating": 5,
     "playtime": 2400,
-    "status": "played"
+    "status": "played",
+    "favorite": false
   },
   {
     "id": "20",
@@ -273,7 +293,8 @@ const gamesMock: Game[] = [
     "release_date": "2020-08-14T03:00:00.000Z",
     "personal_rating": 5,
     "playtime": 6100,
-    "status": "played"
+    "status": "played",
+    "favorite": false
   },
   {
     "id": "21",
@@ -286,7 +307,8 @@ const gamesMock: Game[] = [
     "release_date": "2019-08-27T03:00:00.000Z",
     "personal_rating": 4,
     "playtime": 0,
-    "status": "not-played"
+    "status": "not-played",
+    "favorite": false
   },
   {
     "id": "22",
@@ -299,7 +321,8 @@ const gamesMock: Game[] = [
     "release_date": "2020-07-14T03:00:00.000Z",
     "personal_rating": 4,
     "playtime": 0,
-    "status": "not-played"
+    "status": "not-played",
+    "favorite": false
   },
   {
     "id": "23",
@@ -312,7 +335,8 @@ const gamesMock: Game[] = [
     "release_date": "2019-03-22T03:00:00.000Z",
     "personal_rating": 5,
     "playtime": 0,
-    "status": "not-played"
+    "status": "not-played",
+    "favorite": false
   },
   {
     "id": "24",
@@ -325,7 +349,8 @@ const gamesMock: Game[] = [
     "release_date": "2016-03-11T03:00:00.000Z",
     "personal_rating": 4,
     "playtime": 0,
-    "status": "not-played"
+    "status": "not-played",
+    "favorite": false
   },
   {
     "id": "25",
@@ -338,7 +363,8 @@ const gamesMock: Game[] = [
     "release_date": "2018-10-18T03:00:00.000Z",
     "personal_rating": 5,
     "playtime": 0,
-    "status": "not-played"
+    "status": "not-played",
+    "favorite": false
   },
   {
     "id": "26",
@@ -351,7 +377,8 @@ const gamesMock: Game[] = [
     "release_date": "2021-11-09T03:00:00.000Z",
     "personal_rating": 5,
     "playtime": 1680,
-    "status": "playing"
+    "status": "playing",
+    "favorite": true
   },
   {
     "id": "27",
@@ -364,7 +391,8 @@ const gamesMock: Game[] = [
     "release_date": "2012-10-31T03:00:00.000Z",
     "personal_rating": 3,
     "playtime": 720,
-    "status": "playing"
+    "status": "playing",
+    "favorite": true
   },
   {
     "id": "28",
@@ -377,7 +405,8 @@ const gamesMock: Game[] = [
     "release_date": "2011-11-18T03:00:00.000Z",
     "personal_rating": 5,
     "playtime": 5760,
-    "status": "playing"
+    "status": "playing",
+    "favorite": true
   },
   {
     "id": "29",
@@ -390,8 +419,9 @@ const gamesMock: Game[] = [
     "release_date": "2025-05-15T03:00:00.000Z",
     "personal_rating": 4,
     "playtime": 840,
-    "status": "playing"
+    "status": "playing",
+    "favorite": true
   }
-]
+];
 
 export default gamesMock;

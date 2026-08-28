@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from '../pages/Home/Home';
 import AllGames from '../pages/AllGames/AllGames';
+import Favorites from '../pages/Favorites/Favorites';
 
 const AppRoutes = () => {
     return (
@@ -8,6 +9,7 @@ const AppRoutes = () => {
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/allGames' element={<AllGames />} />
+                <Route path='/favorites' element={<Favorites />} />
             </Routes>
         </BrowserRouter>
     )
