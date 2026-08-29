@@ -4,6 +4,7 @@ import AllGames from '../pages/AllGames/AllGames';
 import Favorites from '../pages/Favorites/Favorites';
 import Completed from '../pages/Completed/Completed';
 import Backlog from '../pages/Backlog/Backlog';
+import Collections from '../pages/Collections/Collections';
 
 const AppRoutes = () => {
     return (
@@ -14,6 +15,7 @@ const AppRoutes = () => {
                 <Route path='/favorites' element={<Favorites />} />
                 <Route path='/completed' element={<Completed />} />
                 <Route path='/backlog' element={<Backlog />} />
+                <Route path='/collections' element={<Collections />} />
             </Routes>
         </BrowserRouter>
     )
