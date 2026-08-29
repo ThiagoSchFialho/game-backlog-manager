@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './styles.css';
 import Header from '../../components/Header/Header';
 import SideMenu from '../../components/SideMenu/SideMenu';
@@ -6,6 +7,7 @@ import { getGameCover } from '../../utils/getGameCover';
 import collectionsMock from '../../mocks/collectionsMock';
 
 const Collections: React.FC = () => {
+    const navigation = useNavigate();
     const [steamApiConnected, setSteamApiConnected] = useState(false);
     const [currentPage, setCurrentPage] = useState('collections');
 
@@ -24,7 +26,10 @@ const Collections: React.FC = () => {
                         {collectionsMock.map(collection => (
                             <div className="collection-folder-container">
                                 <div className="collection-folder-container">
-                                    <div className="collection-folder">
+                                    <div
+                                        onClick={() => navigation(`/collection/${collection.id}`)}
+                                        className="collection-folder"
+                                    >
                                         {collection.games.slice(0, 4).map(game => (
                                             <div className="game">
                                                 <img

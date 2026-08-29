@@ -5,6 +5,8 @@ import Favorites from '../pages/Favorites/Favorites';
 import Completed from '../pages/Completed/Completed';
 import Backlog from '../pages/Backlog/Backlog';
 import Collections from '../pages/Collections/Collections';
+import Collection from '../pages/Collection/Collection';
+
 
 const AppRoutes = () => {
     return (
@@ -16,6 +18,7 @@ const AppRoutes = () => {
                 <Route path='/completed' element={<Completed />} />
                 <Route path='/backlog' element={<Backlog />} />
                 <Route path='/collections' element={<Collections />} />
+                <Route path='/collection/:id' element={<Collection />} />
             </Routes>
         </BrowserRouter>
     )

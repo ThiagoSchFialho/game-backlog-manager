@@ -1,4 +1,27 @@
-const collectionsMock = [
+export type GameStatus = 'completed' | 'not-played' | 'played' | 'playing';
+
+export interface Game {
+    id: string;
+    title: string;
+    steam_id: string;
+    cover_square: string;
+    cover_hero: string;
+    cover_grid: string;
+    developer: string;
+    release_date: string;
+    favorite: boolean;
+    personal_rating: number;
+    playtime: number;
+    status: GameStatus;
+}
+
+export interface Collection {
+    id: string;
+    title: string;
+    games: Game[];
+}
+
+const collectionsMock: Collection[] = [
     {
         "id": "2",
         "title": "Valve",
@@ -80,7 +103,7 @@ const collectionsMock = [
                 "favorite": true
             },
             {
-                "id": "29",
+                "id": "30",
                 "title": "doom 64",
                 "steam_id": "2870750",
                 "cover_square": "",
@@ -94,7 +117,7 @@ const collectionsMock = [
                 "favorite": true
             },
             {
-                "id": "29",
+                "id": "31",
                 "title": "doom eternal",
                 "steam_id": "2870750",
                 "cover_square": "",
@@ -108,7 +131,7 @@ const collectionsMock = [
                 "favorite": true
             },
             {
-                "id": "29",
+                "id": "32",
                 "title": "doom the dark ages",
                 "steam_id": "2870750",
                 "cover_square": "",

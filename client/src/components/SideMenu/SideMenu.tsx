@@ -7,7 +7,6 @@ import check from '../../assets/icons/check.svg';
 import list from '../../assets/icons/list.svg';
 import folder from '../../assets/icons/folder.svg';
 import settings from '../../assets/icons/settings.svg';
-import help from '../../assets/icons/help.svg';
 import homeSelected from '../../assets/icons/home-selected.svg';
 import gamepadSelected from '../../assets/icons/gamepad-selected.svg';
 import heartSelected from '../../assets/icons/heart-selected.svg';
@@ -15,6 +14,7 @@ import checkSelected from '../../assets/icons/check-selected.svg';
 import listSelected from '../../assets/icons/list-selected.svg';
 import folderSelected from '../../assets/icons/folder-selected.svg';
 import { useNavigate } from 'react-router-dom';
+import collectionsMock from '../../mocks/collectionsMock';
 
 interface SideMenuProps {
     currentPage: string;
@@ -60,11 +60,22 @@ const SideMenu: React.FC<SideMenuProps> = ({currentPage}) => {
 
                 <div className="collection-section">
                     <h1 onClick={() => navigation('/collections')} className={selected === 'collections' ? 'selected' : ''}>Coleções</h1>
-                    <ul className="side-menu-list">
-                        <li onClick={() => navigation('/folder')} className={selected === 'folder' ? 'selected' : ''}>
-                            <img src={selected == 'folder' ? folderSelected : folder} alt="pasta" />
-                            <p>Coleção</p>
-                        </li>
+                    <ul className="side-menu-list collection-list">
+                        {collectionsMock.map(collection => {
+                            const path = `/collection/${collection.id}`;
+                            const isSelected = location.pathname === path;
+
+                            return (
+                                <li
+                                    key={collection.id}
+                                    onClick={() => navigation(path)}
+                                    className={isSelected ? 'selected' : ''}
+                                >
+                                    <img src={isSelected ? folderSelected : folder} alt="pasta" />
+                                    <p>{collection.title}</p>
+                                </li>
+                            );
+                        })}
                     </ul>
                 </div>
 
@@ -75,10 +86,6 @@ const SideMenu: React.FC<SideMenuProps> = ({currentPage}) => {
                         <li onClick={() => navigation('/settings')} className={selected === 'settings' ? 'selected' : ''}>
                             <img src={settings} alt="configurações" />
                             <p>Configurações</p>
-                        </li>
-                        <li onClick={() => navigation('/help')} className={selected === 'help' ? 'selected' : ''}>
-                            <img src={help} alt="ajuda" />
-                            <p>Ajuda</p>
                         </li>
                     </ul>
                 </div>

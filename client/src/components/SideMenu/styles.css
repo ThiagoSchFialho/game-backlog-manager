@@ -19,6 +19,10 @@
     gap: 15px;
 }
 
+.collection-list li:first-child {
+    margin-top: 10px;
+}
+
 .side-menu-list li {
     padding: 7px 20px;
     width: 270px;
@@ -29,6 +33,7 @@
     cursor: pointer;
     border-radius: 7px;
 }
+
 
 .side-menu-list li p {
     color: var(--text-secondary);
@@ -55,7 +60,6 @@ hr {
     font-size: 20px;
     font-weight: 700;
     padding: 10px 20px;
-    margin-bottom: 10px;
     border-radius: 7px;
     cursor: pointer;
 }
