@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import './styles.css';
 import Header from '../../components/Header/Header';
 import SideMenu from '../../components/SideMenu/SideMenu';
-import { getGameCover } from '../../utils/getGameCover';
+import CollectionFolder from '../../components/CollectionFolder/CollectionFolder';
 import collectionsMock from '../../mocks/collectionsMock';
 
 const Collections: React.FC = () => {
-    const navigation = useNavigate();
     const [steamApiConnected, setSteamApiConnected] = useState(false);
     const [currentPage, setCurrentPage] = useState('collections');
 
@@ -24,24 +22,9 @@ const Collections: React.FC = () => {
 
                     <div className="collection-folders-container">
                         {collectionsMock.map(collection => (
-                            <div className="collection-folder-container">
-                                <div className="collection-folder-container">
-                                    <div
-                                        onClick={() => navigation(`/collection/${collection.id}`)}
-                                        className="collection-folder"
-                                    >
-                                        {collection.games.slice(0, 4).map(game => (
-                                            <div className="game">
-                                                <img
-                                                    className="collection-game-img"
-                                                    src={getGameCover(game.title)}
-                                                />
-                                            </div> 
-                                        ))}
-                                    </div>
-                                    <p>{collection.title}</p>
-                                </div>
-                            </div>
+                            <CollectionFolder
+                                collection={collection}
+                            />
                         ))}
                     </div>
 
