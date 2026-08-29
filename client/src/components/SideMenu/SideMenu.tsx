@@ -59,9 +59,9 @@ const SideMenu: React.FC<SideMenuProps> = ({currentPage}) => {
                 <hr/>
 
                 <div className="collection-section">
-                    <h1>Coleções</h1>
+                    <h1 onClick={() => navigation('/collections')} className={selected === 'collections' ? 'selected' : ''}>Coleções</h1>
                     <ul className="side-menu-list">
-                        <li onClick={() => navigation('folder')} className={selected === 'folder' ? 'selected' : ''}>
+                        <li onClick={() => navigation('/folder')} className={selected === 'folder' ? 'selected' : ''}>
                             <img src={selected == 'folder' ? folderSelected : folder} alt="pasta" />
                             <p>Coleção</p>
                         </li>
@@ -72,11 +72,11 @@ const SideMenu: React.FC<SideMenuProps> = ({currentPage}) => {
 
                 <div className="footer-section">
                     <ul className="side-menu-list">
-                        <li onClick={() => navigation('settings')} className={selected === 'settings' ? 'selected' : ''}>
+                        <li onClick={() => navigation('/settings')} className={selected === 'settings' ? 'selected' : ''}>
                             <img src={settings} alt="configurações" />
                             <p>Configurações</p>
                         </li>
-                        <li onClick={() => navigation('help')} className={selected === 'help' ? 'selected' : ''}>
+                        <li onClick={() => navigation('/help')} className={selected === 'help' ? 'selected' : ''}>
                             <img src={help} alt="ajuda" />
                             <p>Ajuda</p>
                         </li>

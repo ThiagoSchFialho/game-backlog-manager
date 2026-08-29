@@ -11,7 +11,8 @@
 .game-img {
     width: 248px;
     border-radius: 10px;
-    cursor: pointer; 
+    cursor: pointer;
+    box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .game-card-info{
@@ -29,6 +30,7 @@
 
 .game-footer-info-container {
     display: flex;
+    margin-top: 0px;
     justify-content: space-between;
 }
 

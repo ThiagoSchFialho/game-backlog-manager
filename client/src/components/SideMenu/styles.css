@@ -54,8 +54,10 @@ hr {
 .collection-section h1 {
     font-size: 20px;
     font-weight: 700;
-    margin-bottom: 20px;
-    margin-left: 20px;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    border-radius: 7px;
+    cursor: pointer;
 }
 
 .footer-section {
