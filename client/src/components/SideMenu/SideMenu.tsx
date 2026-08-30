@@ -14,18 +14,30 @@ import checkSelected from '../../assets/icons/check-selected.svg';
 import listSelected from '../../assets/icons/list-selected.svg';
 import folderSelected from '../../assets/icons/folder-selected.svg';
 import { useNavigate } from 'react-router-dom';
-import collectionsMock from '../../mocks/collectionsMock';
+import type { ICollection } from '../../mocks/collectionsMock';
+import { useDb } from '../../hooks/useDb';
 
 interface SideMenuProps {
     currentPage: string;
 }
 
 const SideMenu: React.FC<SideMenuProps> = ({currentPage}) => {
+    const { fetchCollections } = useDb();
     const navigation = useNavigate();
     const [selected, setSelected] = useState('');
+    const [collectionsList, setCollectionsList] = useState<ICollection[]>([]);
 
     useEffect(() => {
         setSelected(currentPage);
+
+        const getCollections = async () => {
+            const collections = await fetchCollections();
+            if (collections) {
+                setCollectionsList(collections);
+            }
+        }
+        
+        getCollections();
     }, [])
 
     return (
@@ -61,7 +73,7 @@ const SideMenu: React.FC<SideMenuProps> = ({currentPage}) => {
                 <div className="collection-section">
                     <h1 onClick={() => navigation('/collections')} className={selected === 'collections' ? 'selected' : ''}>Coleções</h1>
                     <ul className="side-menu-list collection-list">
-                        {collectionsMock.map(collection => {
+                        {collectionsList.map(collection => {
                             const path = `/collection/${collection.id}`;
                             const isSelected = location.pathname === path;
 
