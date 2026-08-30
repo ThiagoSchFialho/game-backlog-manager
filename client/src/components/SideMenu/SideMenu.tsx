@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import './styles.css';
 import home from '../../assets/icons/home.svg';
 import gamepad from '../../assets/icons/gamepad.svg';
-import heart from '../../assets/icons/heart.svg';
+// import heart from '../../assets/icons/heart.svg';
 import check from '../../assets/icons/check.svg';
 import list from '../../assets/icons/list.svg';
 import folder from '../../assets/icons/folder.svg';
 import settings from '../../assets/icons/settings.svg';
 import homeSelected from '../../assets/icons/home-selected.svg';
 import gamepadSelected from '../../assets/icons/gamepad-selected.svg';
-import heartSelected from '../../assets/icons/heart-selected.svg';
+// import heartSelected from '../../assets/icons/heart-selected.svg';
 import checkSelected from '../../assets/icons/check-selected.svg';
 import listSelected from '../../assets/icons/list-selected.svg';
 import folderSelected from '../../assets/icons/folder-selected.svg';
@@ -41,10 +41,10 @@ const SideMenu: React.FC<SideMenuProps> = ({currentPage}) => {
                             <img src={selected == 'allGames' ? gamepadSelected : gamepad} alt="joystick" />
                             <p>Todos os Jogos</p>
                         </li>
-                        <li onClick={() => navigation('/favorites')} className={selected === 'favorites' ? 'selected' : ''}>
+                        {/* <li onClick={() => navigation('/favorites')} className={selected === 'favorites' ? 'selected' : ''}>
                             <img src={selected == 'favorites' ? heartSelected : heart} alt="coração" />
                             <p>Favoritos</p>
-                        </li>
+                        </li> */}
                         <li onClick={() => navigation('/completed')} className={selected === 'completed' ? 'selected' : ''}>
                             <img src={selected == 'completed' ? checkSelected : check} alt="verificado" />
                             <p>Zerados</p>
