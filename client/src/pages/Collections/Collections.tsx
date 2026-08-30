@@ -3,14 +3,14 @@ import './styles.css';
 import Header from '../../components/Header/Header';
 import SideMenu from '../../components/SideMenu/SideMenu';
 import CollectionFolder from '../../components/CollectionFolder/CollectionFolder';
-import type { Collection } from '../../mocks/collectionsMock';
+import type { ICollection } from '../../mocks/collectionsMock';
 import { useDb } from '../../hooks/useDb';
 
 const Collections: React.FC = () => {
     const { fetchCollections } = useDb();
     const [steamApiConnected, setSteamApiConnected] = useState(false);
     const [currentPage] = useState('collections');
-    const [collectionsList, setCollectionsList] = useState<Collection[]>([]);
+    const [collectionsList, setCollectionsList] = useState<ICollection[]>([]);
 
     useEffect(() => {
         const getCollections = async () => {

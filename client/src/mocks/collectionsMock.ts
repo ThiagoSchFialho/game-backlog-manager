@@ -15,13 +15,13 @@ export interface Game {
     status: GameStatus;
 }
 
-export interface Collection {
+export interface ICollection {
     id: string;
     title: string;
     games: Game[];
 }
 
-const collectionsMock: Collection[] = [
+const collectionsMock: ICollection[] = [
     {
         "id": "2",
         "title": "Valve",

@@ -5,7 +5,8 @@ import Header from '../../components/Header/Header';
 import SideMenu from '../../components/SideMenu/SideMenu';
 import GameCard from '../../components/GameCard/GameCard';
 import { getGameCover } from '../../utils/getGameCover';
-import collectionsMock from '../../mocks/collectionsMock';
+import type { ICollection } from '../../mocks/collectionsMock';
+import { useDb } from '../../hooks/useDb';
 
 export type GameStatus = 'completed' | 'not-played' | 'played' | 'playing';
 
@@ -32,13 +33,27 @@ export interface Collection {
 
 const Collection: React.FC = () => {
     const { id } = useParams<{ id: string }>();
+    const { fetchCollections } = useDb();
     const [steamApiConnected, setSteamApiConnected] = useState(false);
     const [currentPage, setCurrentPage] = useState(`collection${id}`);
-    const collection = collectionsMock.find(c => c.id === id);
+    const [collectionsList, setCollectionsList] = useState<ICollection[]>([]);
+    const collection = collectionsList.find(c => c.id === id);
 
     useEffect(() => {
         setCurrentPage(`collection${id}`);
     }, [id]);
+
+    useEffect(() => {
+            const getCollections = async () => {
+                const collections = await fetchCollections();
+                if (collections) {
+                    setCollectionsList(collections);
+                    setSteamApiConnected(true);
+                }
+            }
+            
+            getCollections();
+        }, []);
 
     return (
         <>
