@@ -12,7 +12,6 @@ const AllGames: React.FC = () => {
     const { fetchGames } = useDb();
     const [steamApiConnected, setSteamApiConnected] = useState(false);
     const [currentPage] = useState('allGames');
-
     const [gamesList, setGamesList] = useState<Game[]>([]);
         
     useEffect(() => {

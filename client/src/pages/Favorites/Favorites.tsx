@@ -1,16 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './styles.css';
 import Header from '../../components/Header/Header';
 import SideMenu from '../../components/SideMenu/SideMenu';
 import GameCard from '../../components/GameCard/GameCard';
 import { getGameCover } from '../../utils/getGameCover';
-import gamesMock from '../../mocks/gamesMock';
+import type { Game } from '../../mocks/gamesMock';
+import { useDb } from '../../hooks/useDb';
 
-const favoriteGames = gamesMock.filter(game => game.favorite === true);
 
 const Favorites: React.FC = () => {
+    const { fetchGames } = useDb();
     const [steamApiConnected, setSteamApiConnected] = useState(false);
     const [currentPage] = useState('favorites');
+    const [gamesList, setGamesList] = useState<Game[]>([]);
+    
+    useEffect(() => {
+        const getGames = async () => {
+            const games = await fetchGames();
+            if (games) {
+                setGamesList(games);
+                setSteamApiConnected(true);
+            }
+        }
+        
+        getGames();
+    }, [gamesList]);
+    
+    const favoriteGames = gamesList.filter(game => game.favorite === true);
 
     return (
         <>
@@ -24,14 +40,18 @@ const Favorites: React.FC = () => {
                     </div>
 
                     <div className="favorites-games-container">
-                        {favoriteGames.map(game => (
-                            <GameCard
-                                key={game.id}
-                                img={getGameCover(game.title)}
-                                name={game.title}
-                                status={game.status}
-                                playtime={game.playtime}
-                            />
+                        {favoriteGames.length === 0 ? (
+                            <h2>Nenhum jogo favorito ainda.</h2>
+                        ): (
+                            favoriteGames.map(game => (
+                                <GameCard
+                                    key={game.id}
+                                    img={getGameCover(game.title)}
+                                    name={game.title}
+                                    status={game.status}
+                                    playtime={game.playtime}
+                                />
+                            )
                         ))}
                     </div>
                 </div>
