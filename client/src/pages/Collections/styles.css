@@ -4,54 +4,26 @@
     padding: 20px 30px 50px 40px;
 }
 
-.collections-games-container {
+.create-collection-btn-container {
     display: flex;
-    flex-wrap: wrap;
-    gap: 25px;
-    width: fit-content;
-    padding-left: 40px;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--primary);
+    border-radius: 5px;
+    padding: 10px 30px;
+    margin-right: 60px;
+    cursor: pointer;
+}
+
+.create-collection-btn {
+    background-color: var(--primary);
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
 }
 
 .collection-folders-container {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 20px;
-}
-
-.collection-folder-container {
-    margin-bottom: 30px;
-    cursor: pointer;
-}
-
-.collection-folder-container p {
-    margin-top: 10px;
-    font-size: 16px;
-    font-weight: 600;
-    text-align: center;
-}
-
-.collection-folder {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    padding: 20px;
-    box-shadow: var(--shadow);
-    background-color: var(--bg-card);
-    border: var(--border-primary);
-    border-radius: 20px;
-    width: 281px;
-    height: 281px;
-}
-
-.game {
-    width: 112px;
-    height: 112px;
-    background-color: var(--primary);
-    border-radius: 10px;
-}
-
-.collection-game-img {
-    width: 112px;
-    height: 112px;
-    border-radius: 10px;
 }

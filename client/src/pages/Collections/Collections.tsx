@@ -18,6 +18,9 @@ const Collections: React.FC = () => {
                 <div className="collections-main-content">
                     <div className="page-header">
                         <h1 className="title">Coleções</h1>
+                        <div className="create-collection-btn-container">
+                            <div className="create-collection-btn">Criar Coleção</div>
+                        </div>
                     </div>
 
                     <div className="collection-folders-container">

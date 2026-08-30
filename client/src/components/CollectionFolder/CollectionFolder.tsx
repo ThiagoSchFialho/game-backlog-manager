@@ -26,7 +26,6 @@ export interface Collection {
     games: Game[];
 }
 
-
 interface ColelctionFolderProps {
     collection: Collection;
 }
@@ -37,22 +36,20 @@ const CollectionFolder: React.FC<ColelctionFolderProps> = ({collection}) => {
     return (
         <>            
             <div className="collection-folder-container">
-                <div className="collection-folder-container">
-                    <div
-                        onClick={() => navigation(`/collection/${collection.id}`)}
-                        className="collection-folder"
-                    >
-                        {collection.games.slice(0, 4).map(game => (
-                            <div className="game">
-                                <img
-                                    className="collection-game-img"
-                                    src={getGameCover(game.title)}
-                                />
-                            </div> 
-                        ))}
-                    </div>
-                    <p>{collection.title}</p>
+                <div
+                    onClick={() => navigation(`/collection/${collection.id}`)}
+                    className="collection-folder"
+                >
+                    {collection.games.slice(0, 4).map(game => (
+                        <div className="game">
+                            <img
+                                className="collection-game-img"
+                                src={getGameCover(game.title)}
+                            />
+                        </div> 
+                    ))}
                 </div>
+                <p>{collection.title}</p>
             </div>
         </>
     )
