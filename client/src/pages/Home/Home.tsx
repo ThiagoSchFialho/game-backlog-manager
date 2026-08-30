@@ -136,7 +136,7 @@ const Home: React.FC = () => {
                                     <ul>
                                         {notPlayedGames.slice(0, 4).map(game => (
                                             <li key={game.id}>
-                                                <div className="game-icon"></div>
+                                                <img className="game-icon" src={game.cover_square} />
                                                 <div>
                                                     <h1 className="game-title">{game.title}</h1>
                                                     <p className="aditional-text">{game.developer}</p>
@@ -156,7 +156,7 @@ const Home: React.FC = () => {
                                     <ul>
                                         {playedGames.slice(0, 4).map(game => (
                                             <li key={game.id}>
-                                                <div className="game-icon"></div>
+                                                <img className="game-icon" src={game.cover_square} />
                                                 <div>
                                                     <h1 className="game-title">{game.title}</h1>
                                                     <p className="aditional-text">{Math.round(game.playtime / 60)}h</p>
@@ -176,7 +176,7 @@ const Home: React.FC = () => {
                                     <ul>
                                         {completedGames.slice(0, 4).map(game => (
                                             <li key={game.id}>
-                                                <div className="game-icon"></div>
+                                                <img className="game-icon" src={game.cover_square} />
                                                 <div>
                                                     <h1 className="game-title">{game.title}</h1>
                                                     <p className="aditional-text">{Math.round(game.playtime / 60)}h</p>
