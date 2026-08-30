@@ -31,7 +31,7 @@ const Home: React.FC = () => {
         }
         
         getGames();
-    }, [gamesList]);
+    }, []);
     
     const notPlayedGames = gamesList.filter(game => game.status === 'not-played');
     const playedGames = gamesList.filter(game => game.status === 'played');

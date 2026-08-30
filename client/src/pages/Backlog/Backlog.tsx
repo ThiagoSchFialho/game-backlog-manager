@@ -24,7 +24,7 @@ const Backlog: React.FC = () => {
         }
         
         getGames();
-    }, [gamesList]);
+    }, []);
         
     const playingGames = gamesList.filter(game => game.status === 'playing');
     const playedGames = gamesList.filter(game => game.status === 'played');

@@ -24,7 +24,7 @@ const Favorites: React.FC = () => {
         }
         
         getGames();
-    }, [gamesList]);
+    }, []);
     
     const favoriteGames = gamesList.filter(game => game.favorite === true);
 

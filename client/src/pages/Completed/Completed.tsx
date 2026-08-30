@@ -23,7 +23,7 @@ const Completed: React.FC = () => {
         }
         
         getGames();
-    }, [gamesList]);
+    }, []);
 
     const completedGames = gamesList.filter(game => game.status === "completed");
 

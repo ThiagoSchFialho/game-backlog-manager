@@ -24,7 +24,7 @@ const AllGames: React.FC = () => {
         }
         
         getGames();
-    }, [gamesList]);
+    }, []);
 
     const [statusFilter, setStatusFilter] = useState('all');
     const [yearFilter, setYearFilter] = useState('all');
@@ -72,7 +72,7 @@ const AllGames: React.FC = () => {
         });
 
         return result;
-    }, [statusFilter, yearFilter, sortBy, sortOrder]);
+    }, [statusFilter, yearFilter, sortBy, sortOrder, gamesList]);
 
     const clearFilters = () => {
         setStatusFilter('all');
