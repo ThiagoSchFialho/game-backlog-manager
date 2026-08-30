@@ -1,5 +1,5 @@
 import { Games } from "../entities/games";
-import { CreateGameInput, IGamesModel, UpdateGameInput } from "./interfaces/games.interface.model";
+import { CreateGameInput, GameWithGenres, IGamesModel, UpdateGameInput } from "./interfaces/games.interface.model";
 import pool from "../config/db.config";
 
 function dbError(context: string, error: unknown): Error {
@@ -17,7 +17,7 @@ export class GamesModel implements IGamesModel {
                 )
                 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
                 RETURNING *;    
-            `, [
+                `, [
                 input.title,
                 input.steam_id,
                 input.developer,
@@ -30,58 +30,128 @@ export class GamesModel implements IGamesModel {
                 input.personal_rating ?? null,
                 input.favorite ?? false,
             ]);
-
+            
             return result.rows[0];
         } catch (error) {
             console.error(error);
             throw dbError("Erro ao adicionar jogo ao banco de dados.", error);
         }
     }
-
-
+    
     public async getGameById(id: number): Promise<Games | undefined> {
         try {
             const result = await pool.query(`
                 SELECT * FROM games
                 WHERE id = $1;
+                `, [id]);
+                
+                return result.rows[0];
+            } catch (error) {
+                console.error(error);
+                throw dbError("Erro ao buscar jogo por id.", error);
+            }
+    }
+
+    public async getGameByIdWithGenres(id: number): Promise<GameWithGenres | undefined> {
+        try {
+            const result = await pool.query(`
+                SELECT
+                    g.*,
+                    COALESCE(
+                        json_agg(
+                            json_build_object('id', gen.id, 'name', gen.name)
+                        ) FILTER (WHERE gen.id IS NOT NULL),
+                        '[]'
+                    ) AS genres
+                FROM games g
+                LEFT JOIN game_genres gg ON gg.game_id = g.id
+                LEFT JOIN genres gen ON gen.id = gg.genre_id
+                WHERE g.id = $1
+                GROUP BY g.id;
             `, [id]);
 
             return result.rows[0];
         } catch (error) {
             console.error(error);
-            throw dbError("Erro ao buscar jogo por id.", error);
+            throw dbError("Erro ao buscar jogo por id com gêneros.", error);
         }
     }
-
-
+    
     public async getGameBySteamId(steam_id: number): Promise<Games | undefined> {
         try {
             const result = await pool.query(`
                 SELECT * FROM games
                 WHERE steam_id = $1;
+                `, [steam_id]);
+                
+                return result.rows[0];
+            } catch (error) {
+                console.error(error);
+            throw dbError("Erro ao buscar jogo por steam_id.", error);
+        }
+    }
+    
+    public async getGameBySteamIdWithGenres(steam_id: number): Promise<GameWithGenres | undefined> {
+        try {
+            const result = await pool.query(`
+                SELECT
+                    g.*,
+                    COALESCE(
+                        json_agg(
+                            json_build_object('id', gen.id, 'name', gen.name)
+                        ) FILTER (WHERE gen.id IS NOT NULL),
+                        '[]'
+                    ) AS genres
+                FROM games g
+                LEFT JOIN game_genres gg ON gg.game_id = g.id
+                LEFT JOIN genres gen ON gen.id = gg.genre_id
+                WHERE g.steam_id = $1
+                GROUP BY g.id;
             `, [steam_id]);
 
             return result.rows[0];
         } catch (error) {
             console.error(error);
-            throw dbError("Erro ao buscar jogo por steam_id.", error);
+            throw dbError("Erro ao buscar jogo por steam_id com gêneros.", error);
         }
     }
-
-
+    
     public async getAllGames(): Promise<Games[]> {
         try {
             const result = await pool.query(`
                 SELECT * FROM games;
+                `);
+                
+                return result.rows;
+            } catch (error) {
+                console.error(error);
+                throw dbError("Erro ao buscar jogos.", error);
+            }
+        }
+        
+    public async getAllGamesWithGenres(): Promise<GameWithGenres[]> {
+        try {
+            const result = await pool.query(`
+                SELECT
+                    g.*,
+                    COALESCE(
+                        json_agg(
+                            json_build_object('id', gen.id, 'name', gen.name)
+                        ) FILTER (WHERE gen.id IS NOT NULL),
+                        '[]'
+                    ) AS genres
+                FROM games g
+                LEFT JOIN game_genres gg ON gg.game_id = g.id
+                LEFT JOIN genres gen ON gen.id = gg.genre_id
+                GROUP BY g.id;
             `);
 
             return result.rows;
         } catch (error) {
             console.error(error);
-            throw dbError("Erro ao buscar jogos.", error);
+            throw dbError("Erro ao buscar jogos com gêneros.", error);
         }
     }
-
 
     public async updateGame(id: number, input: UpdateGameInput): Promise<Games | undefined> {
         try {
