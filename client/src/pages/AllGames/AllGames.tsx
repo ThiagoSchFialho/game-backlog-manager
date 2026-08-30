@@ -9,7 +9,7 @@ import gamesMock from '../../mocks/gamesMock';
 
 const AllGames: React.FC = () => {
     const [steamApiConnected, setSteamApiConnected] = useState(false);
-    const [currentPage, setCurrentPage] = useState('allGames');
+    const [currentPage] = useState('allGames');
 
     const [statusFilter, setStatusFilter] = useState('all');
     const [yearFilter, setYearFilter] = useState('all');

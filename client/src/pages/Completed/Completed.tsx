@@ -10,7 +10,7 @@ const completedGames = gamesMock.filter(game => game.status === "completed");
 
 const Completed: React.FC = () => {
     const [steamApiConnected, setSteamApiConnected] = useState(false);
-    const [currentPage, setCurrentPage] = useState('completed');
+    const [currentPage] = useState('completed');
 
     return (
         <>

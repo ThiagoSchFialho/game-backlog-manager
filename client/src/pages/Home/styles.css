@@ -201,8 +201,8 @@ body {
 .not-played {
     color: var(--warning);
 }
-.playing {
-    color: var(--success);
+.played {
+    color: var(--info);
 }
 .completed {
     color: var(--primary-light);

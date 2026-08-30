@@ -12,7 +12,7 @@ const notPlayedGames = gamesMock.filter(game => game.status === 'not-played');
 
 const Backlog: React.FC = () => {
     const [steamApiConnected, setSteamApiConnected] = useState(false);
-    const [currentPage, setCurrentPage] = useState('backlog');
+    const [currentPage] = useState('backlog');
 
     return (
         <>

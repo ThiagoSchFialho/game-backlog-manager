@@ -10,7 +10,7 @@ const favoriteGames = gamesMock.filter(game => game.favorite === true);
 
 const Favorites: React.FC = () => {
     const [steamApiConnected, setSteamApiConnected] = useState(false);
-    const [currentPage, setCurrentPage] = useState('favorites');
+    const [currentPage] = useState('favorites');
 
     return (
         <>

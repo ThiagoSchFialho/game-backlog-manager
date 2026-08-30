@@ -1,6 +1,6 @@
 type GameStatus = 'completed' | 'not-played' | 'played' | 'playing';
 
-interface Game {
+export interface Game {
     id: string;
     title: string;
     steam_id: string;

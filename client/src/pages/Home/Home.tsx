@@ -1,25 +1,48 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './styles.css';
 import Header from '../../components/Header/Header';
 import SideMenu from '../../components/SideMenu/SideMenu';
 import GameCard from '../../components/GameCard/GameCard';
 import { getGameCover } from '../../utils/getGameCover';
+import { useDb } from '../../hooks/useDb';
+import type { Game } from '../../mocks/gamesMock';
 
 import gamepadInfo from '../../assets/icons/gamepad-info.svg';
 import checkInfo from '../../assets/icons/check-info.svg';
 import playInfo from '../../assets/icons/play-info.svg';
 import clockInfo from '../../assets/icons/clock-info.svg';
 import sync from '../../assets/icons/sync.svg';
-import gamesMock from '../../mocks/gamesMock';
-
-const notPlayedGames = gamesMock.filter(game => game.status === 'not-played');
-const playedGames = gamesMock.filter(game => game.status === 'played');
-const completedGames = gamesMock.filter(game => game.status === 'completed');
-const playingGames = gamesMock.filter(game => game.status === 'playing');
 
 const Home: React.FC = () => {
+    const navigation = useNavigate();
+    const { fetchGames } = useDb();
     const [steamApiConnected, setSteamApiConnected] = useState(false);
-    const [selected, setSelected] = useState('home');
+    const [selected] = useState('home');
+    const [gamesList, setGamesList] = useState<Game[]>([]);
+    
+    useEffect(() => {
+        const getGames = async () => {
+            const games = await fetchGames();
+            if (games) {
+                setGamesList(games);
+                setSteamApiConnected(true);
+            }
+        }
+        
+        getGames();
+    }, [gamesList]);
+    
+    const notPlayedGames = gamesList.filter(game => game.status === 'not-played');
+    const playedGames = gamesList.filter(game => game.status === 'played');
+    const completedGames = gamesList.filter(game => game.status === 'completed');
+    const playingGames = gamesList.filter(game => game.status === 'playing');
+    
+    const calcFullPlaytime = () => {
+        let fullPlayTime = 0;
+        gamesList.forEach(game => (fullPlayTime = fullPlayTime + game.playtime));
+        return Math.round(fullPlayTime / 60);
+    }
 
     return (
         <>
@@ -45,26 +68,26 @@ const Home: React.FC = () => {
                                 <img src={gamepadInfo} alt="joystick" />
                             </div>
                             <div className="info-card-text-container blue-text">
-                                <h1 className="info-card-title">127</h1>
+                                <h1 className="info-card-title">{gamesList.length}</h1>
                                 <p className="info-card-text">Jogos Adiquiridos</p>
                             </div>
                         </div>
                         <div className="info-card background-green">
                             <div className="info-icon-container green">
-                                <img src={checkInfo} alt="verificado" />
+                                <img src={playInfo} alt="verificado" />
                             </div>
                             <div className="info-card-text-container green-text">
-                                <h1 className="info-card-title">38</h1>
-                                <p className="info-card-text">Jogos Zerados</p>
+                                <h1 className="info-card-title">{playedGames.length}</h1>
+                                <p className="info-card-text">Jogos Iniciados</p>
                             </div>
                         </div>
                         <div className="info-card background-purple">
                             <div className="info-icon-container purple">
-                                <img src={playInfo} alt="play" />
+                                <img src={checkInfo} alt="play" />
                             </div>
                             <div className="info-card-text-container purple-text">
-                                <h1 className="info-card-title">18</h1>
-                                <p className="info-card-text">Jogando Agora</p>
+                                <h1 className="info-card-title">{completedGames.length}</h1>
+                                <p className="info-card-text">Jogos Zerados</p>
                             </div>
                         </div>
                         <div className="info-card background-yellow">
@@ -72,29 +95,33 @@ const Home: React.FC = () => {
                                 <img src={clockInfo} alt="relógio" />
                             </div>
                             <div className="info-card-text-container yellow-text">
-                                <h1 className="info-card-title">421h</h1>
+                                <h1 className="info-card-title">{calcFullPlaytime()}h</h1>
                                 <p className="info-card-text">Horas Jogadas</p>
                             </div>
                         </div>
                     </div>
 
-                    <div className="playing-now-container">
-                        <div className="playing-now-header">
-                            <h1>Jogando Agora</h1>
-                            <p>Ver todos</p>
+                    {playingGames.length === 0 ? (
+                        <></>
+                    ): (
+                        <div className="playing-now-container">
+                            <div className="playing-now-header">
+                                <h1>Jogando Agora</h1>
+                                <p onClick={() => navigation('/backlog')}>Ver todos</p>
+                            </div>
+                            <div className="game-cards-container">
+                                {playingGames.slice(0, 4).map(game => (
+                                    <GameCard
+                                        key={game.id}
+                                        img={getGameCover(game.title)}
+                                        name={game.title}
+                                        status={game.status}
+                                        playtime={game.playtime}
+                                    />
+                                ))}
+                            </div>
                         </div>
-                        <div className="game-cards-container">
-                            {playingGames.slice(0, 4).map(game => (
-                                <GameCard
-                                    key={game.id}
-                                    img={getGameCover(game.title)}
-                                    name={game.title}
-                                    status={game.status}
-                                    playtime={game.playtime}
-                                />
-                            ))}
-                        </div>
-                    </div>
+                    )}
 
                     <div className="backlog-overview-container">
                         <h1 className="backlog-overview-title">Backlog</h1>
@@ -103,7 +130,7 @@ const Home: React.FC = () => {
                             <div className="overview-list">
                                 <div className="overview-header">
                                     <h1 className="not-played">Não jogados <span>({notPlayedGames.length})</span></h1>
-                                    <p>Ver todos</p>
+                                    <p onClick={() => navigation('/backlog')}>Ver todos</p>
                                 </div>
                                 <div className="overview">
                                     <ul>
@@ -122,8 +149,8 @@ const Home: React.FC = () => {
 
                             <div className="overview-list">
                                 <div className="overview-header">
-                                    <h1 className="playing">Jogados <span>({playedGames.length})</span></h1>
-                                    <p>Ver todos</p>
+                                    <h1 className="played">Jogados <span>({playedGames.length})</span></h1>
+                                    <p onClick={() => navigation('/backlog')}>Ver todos</p>
                                 </div>
                                 <div className="overview">
                                     <ul>
@@ -143,7 +170,7 @@ const Home: React.FC = () => {
                             <div className="overview-list">
                                 <div className="overview-header">
                                     <h1 className="completed">Zerados <span>({completedGames.length})</span></h1>
-                                    <p>Ver todos</p>
+                                    <p onClick={() => navigation('/completed')}>Ver todos</p>
                                 </div>
                                 <div className="overview">
                                     <ul>

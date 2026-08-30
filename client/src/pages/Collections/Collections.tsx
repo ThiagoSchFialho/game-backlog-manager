@@ -7,7 +7,7 @@ import collectionsMock from '../../mocks/collectionsMock';
 
 const Collections: React.FC = () => {
     const [steamApiConnected, setSteamApiConnected] = useState(false);
-    const [currentPage, setCurrentPage] = useState('collections');
+    const [currentPage] = useState('collections');
 
     return (
         <>
