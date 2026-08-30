@@ -35,7 +35,11 @@ const GameCard: React.FC<GameCardsProps> = ({ img, name, status, playtime }) => 
                     </div>
                     <div className="playtime-container">
                         <img className="playtime-icon" src={clock} alt="relógio" />
-                        <p>{Math.round(playtime / 60)}h</p>
+                        <p className="aditional-text">
+                        {playtime < 60
+                            ? `${playtime}m`
+                            : `${Math.floor(playtime / 60)}h${playtime % 60 > 0 ? ` ${playtime % 60}m` : ''}`}
+                        </p>
                     </div>
                 </div>
             </div>

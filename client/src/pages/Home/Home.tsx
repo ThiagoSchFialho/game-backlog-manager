@@ -159,7 +159,11 @@ const Home: React.FC = () => {
                                                 <img className="game-icon" src={game.cover_square} />
                                                 <div>
                                                     <h1 className="game-title">{game.title}</h1>
-                                                    <p className="aditional-text">{Math.round(game.playtime / 60)}h</p>
+                                                    <p className="aditional-text">
+                                                    {game.playtime < 60
+                                                        ? `${game.playtime}m`
+                                                        : `${Math.floor(game.playtime / 60)}h${game.playtime % 60 > 0 ? ` ${game.playtime % 60}m` : ''}`}
+                                                    </p>
                                                 </div>
                                             </li>
                                         ))}
@@ -179,7 +183,11 @@ const Home: React.FC = () => {
                                                 <img className="game-icon" src={game.cover_square} />
                                                 <div>
                                                     <h1 className="game-title">{game.title}</h1>
-                                                    <p className="aditional-text">{Math.round(game.playtime / 60)}h</p>
+                                                    <p className="aditional-text">
+                                                    {game.playtime < 60
+                                                        ? `${game.playtime}m`
+                                                        : `${Math.floor(game.playtime / 60)}h${game.playtime % 60 > 0 ? ` ${game.playtime % 60}m` : ''}`}
+                                                    </p>
                                                 </div>
                                             </li>
                                         ))}
