@@ -1,18 +1,34 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './styles.css';
 import Header from '../../components/Header/Header';
 import SideMenu from '../../components/SideMenu/SideMenu';
 import GameCard from '../../components/GameCard/GameCard';
 import { getGameCover } from '../../utils/getGameCover';
-import gamesMock from '../../mocks/gamesMock';
+import type { Game } from '../../mocks/gamesMock';
+import { useDb } from '../../hooks/useDb';
 
-const playingGames = gamesMock.filter(game => game.status === 'playing');
-const playedGames = gamesMock.filter(game => game.status === 'played');
-const notPlayedGames = gamesMock.filter(game => game.status === 'not-played');
 
 const Backlog: React.FC = () => {
+    const { fetchGames } = useDb();
     const [steamApiConnected, setSteamApiConnected] = useState(false);
     const [currentPage] = useState('backlog');
+    const [gamesList, setGamesList] = useState<Game[]>([]);
+    
+    useEffect(() => {
+        const getGames = async () => {
+            const games = await fetchGames();
+            if (games) {
+                setGamesList(games);
+                setSteamApiConnected(true);
+            }
+        }
+        
+        getGames();
+    }, [gamesList]);
+        
+    const playingGames = gamesList.filter(game => game.status === 'playing');
+    const playedGames = gamesList.filter(game => game.status === 'played');
+    const notPlayedGames = gamesList.filter(game => game.status === 'not-played');
 
     return (
         <>

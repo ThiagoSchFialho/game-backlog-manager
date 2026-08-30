@@ -7,7 +7,6 @@ import { getGameCover } from '../../utils/getGameCover';
 import type { Game } from '../../mocks/gamesMock';
 import { useDb } from '../../hooks/useDb';
 
-
 const Completed: React.FC = () => {
     const { fetchGames } = useDb();
     const [steamApiConnected, setSteamApiConnected] = useState(false);
