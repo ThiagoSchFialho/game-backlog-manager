@@ -91,6 +91,46 @@ router.get('/', async function (req: Request, res: Response) {
     }
 });
 
+router.get('/with-genres', async function (req: Request, res: Response) {
+    const { steam_id } = req.query;
+
+    try {
+        if (steam_id) {
+            const game = await gamesModel.getGameBySteamIdWithGenres(Number(steam_id));
+            if (!game) {
+                return res.status(404).json({ message: "Nenhum jogo encontrado." });
+            }
+            return res.status(200).json(game);
+        }
+
+        const games = await gamesModel.getAllGamesWithGenres();
+        if (!games?.length) {
+            return res.status(404).json({ message: "Nenhum jogo encontrado." });
+        }
+        return res.status(200).json(games);
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "Erro interno do servidor." });
+    }
+});
+
+router.get('/with-genres/:id', async function (req: Request, res: Response) {
+    const { id } = req.params;
+
+    try {
+        const game = await gamesModel.getGameByIdWithGenres(Number(id));
+        if (!game) {
+            return res.status(404).json({ message: "Nenhum jogo encontrado." });
+        }
+        return res.status(200).json(game);
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "Erro interno do servidor." });
+    }
+});
+
 router.get('/:id', async function (req: Request, res: Response) {
     const { id } = req.params;
 
