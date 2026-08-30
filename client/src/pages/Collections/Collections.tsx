@@ -1,13 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './styles.css';
 import Header from '../../components/Header/Header';
 import SideMenu from '../../components/SideMenu/SideMenu';
 import CollectionFolder from '../../components/CollectionFolder/CollectionFolder';
-import collectionsMock from '../../mocks/collectionsMock';
+import type { Collection } from '../../mocks/collectionsMock';
+import { useDb } from '../../hooks/useDb';
 
 const Collections: React.FC = () => {
+    const { fetchCollections } = useDb();
     const [steamApiConnected, setSteamApiConnected] = useState(false);
     const [currentPage] = useState('collections');
+    const [collectionsList, setCollectionsList] = useState<Collection[]>([]);
+
+    useEffect(() => {
+        const getCollections = async () => {
+            const collections = await fetchCollections();
+            if (collections) {
+                setCollectionsList(collections);
+                setSteamApiConnected(true);
+            }
+        }
+        
+        getCollections();
+    }, []);
 
     return (
         <>
@@ -24,7 +39,7 @@ const Collections: React.FC = () => {
                     </div>
 
                     <div className="collection-folders-container">
-                        {collectionsMock.map(collection => (
+                        {collectionsList.map(collection => (
                             <CollectionFolder
                                 collection={collection}
                             />
