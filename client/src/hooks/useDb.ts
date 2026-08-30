@@ -18,5 +18,22 @@ export const useDb = () => {
         }
     }
 
-    return {fetchGames}
+    const fetchCollections = async () => {
+        try {
+            const response = await fetch (`${host}/collections/with-games`);
+            const data = await response.json();
+
+            if (response.ok) {
+                return data;
+            } else {
+                console.error("Erro ao carregar coleções.", data.error);
+                return data;
+            }
+
+        } catch (error) {
+            console.error("Erro ao carregar coleções.", error);
+        }
+    }
+
+    return {fetchGames, fetchCollections}
 }
