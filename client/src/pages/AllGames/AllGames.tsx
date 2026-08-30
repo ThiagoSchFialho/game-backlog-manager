@@ -1,15 +1,31 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import './styles.css';
 import Header from '../../components/Header/Header';
 import SideMenu from '../../components/SideMenu/SideMenu';
 import GameCard from '../../components/GameCard/GameCard';
 import sync from '../../assets/icons/sync.svg';
 import { getGameCover } from '../../utils/getGameCover';
-import gamesMock from '../../mocks/gamesMock';
+import type { Game } from '../../mocks/gamesMock';
+import { useDb } from '../../hooks/useDb';
 
 const AllGames: React.FC = () => {
+    const { fetchGames } = useDb();
     const [steamApiConnected, setSteamApiConnected] = useState(false);
     const [currentPage] = useState('allGames');
+
+    const [gamesList, setGamesList] = useState<Game[]>([]);
+        
+    useEffect(() => {
+        const getGames = async () => {
+            const games = await fetchGames();
+            if (games) {
+                setGamesList(games);
+                setSteamApiConnected(true);
+            }
+        }
+        
+        getGames();
+    }, [gamesList]);
 
     const [statusFilter, setStatusFilter] = useState('all');
     const [yearFilter, setYearFilter] = useState('all');
@@ -17,7 +33,7 @@ const AllGames: React.FC = () => {
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
     const filteredGames = useMemo(() => {
-        let result = [...gamesMock];
+        let result = [...gamesList];
 
         if (statusFilter !== 'all') {
             result = result.filter(game => game.status === statusFilter);
