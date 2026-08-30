@@ -25,7 +25,7 @@ CREATE TABLE genres (
 );
 
 CREATE TABLE game_genres (
-    id BIGINT PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     game_id BIGINT NOT NULL,
     genre_id BIGINT NOT NULL,
     FOREIGN KEY (game_id)
@@ -45,7 +45,7 @@ CREATE TABLE collections (
 );
 
 CREATE TABLE collection_games (
-    id BIGINT PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     collection_id BIGINT NOT NULL,
     game_id BIGINT NOT NULL,
     FOREIGN KEY (collection_id)

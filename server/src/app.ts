@@ -5,6 +5,7 @@ import genresRouter from './routes/genres';
 import gameGenresRouter from './routes/gameGenres';
 import collectionsRouter from './routes/collections';
 import collectionGamesRouter from './routes/collectionGames';
+import steamApiRouter from './routes/steamApi';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -22,6 +23,7 @@ app.use('/genres', genresRouter);
 app.use('/game-genres', gameGenresRouter);
 app.use('/collections', collectionsRouter);
 app.use('/collection-games', collectionGamesRouter);
+app.use('/steam-api', steamApiRouter);
 
 app.get('/', (req: Request, res: Response) => {
   res.json({ message: 'API rodando!' });
