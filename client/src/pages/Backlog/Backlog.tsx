@@ -7,6 +7,17 @@ import { getGameCover } from '../../utils/getGameCover';
 import type { Game } from '../../types/gamesType';
 import { useDb } from '../../hooks/useDb';
 
+function sortByRecentlyPlayed(games: Game[]): Game[] {
+    return [...games].sort((a, b) =>
+        Number(b.rtime_last_played ?? 0) - Number(a.rtime_last_played ?? 0)
+    );
+}
+
+function sortByTitle(games: Game[]): Game[] {
+    return [...games].sort((a, b) =>
+        a.title.localeCompare(b.title, 'pt-BR', { sensitivity: 'base' })
+    );
+}
 
 const Backlog: React.FC = () => {
     const { fetchGames } = useDb();
@@ -26,9 +37,9 @@ const Backlog: React.FC = () => {
         getGames();
     }, []);
         
-    const playingGames = gamesList.filter(game => game.status === 'playing');
-    const playedGames = gamesList.filter(game => game.status === 'played');
-    const notPlayedGames = gamesList.filter(game => game.status === 'not-played');
+    const playingGames = sortByRecentlyPlayed(gamesList.filter(game => game.status === 'playing'));
+    const playedGames = sortByTitle(gamesList.filter(game => game.status === 'played'));
+    const notPlayedGames = sortByTitle(gamesList.filter(game => game.status === 'not-played'));
 
     return (
         <>
