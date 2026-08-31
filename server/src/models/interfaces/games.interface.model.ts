@@ -5,6 +5,7 @@ export interface CreateGameInput {
     steam_id: number;
     developer: string;
     release_date: string;
+    rtime_last_played: string;
     playtime: number;
     status: string;
     cover_square?: string | undefined;

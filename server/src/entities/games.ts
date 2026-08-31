@@ -9,6 +9,7 @@ export class Games implements IGames {
     cover_grid?: string;
     developer: string;
     release_date: string;
+    rtime_last_played: string;
     favorite: boolean;
     personal_rating?: number;
     playtime: number;
@@ -22,6 +23,7 @@ export class Games implements IGames {
         cover_grid: string,
         developer: string,
         release_date: string,
+        rtime_last_played: string,
         favorite: boolean,
         personal_rating: number,
         playtime: number,
@@ -34,6 +36,7 @@ export class Games implements IGames {
         this.cover_grid = cover_grid;
         this.developer = developer;
         this.release_date = release_date;
+        this.rtime_last_played = rtime_last_played;
         this.favorite = favorite;
         this.personal_rating = personal_rating;
         this.playtime = playtime;

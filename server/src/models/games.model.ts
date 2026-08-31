@@ -12,16 +12,17 @@ export class GamesModel implements IGamesModel {
             const result = await pool.query(`
                 INSERT INTO games (
                     title, steam_id, developer, release_date,
-                    playtime, status, cover_square, cover_hero,
-                    cover_grid, personal_rating, favorite
+                    rtime_last_played, playtime, status, cover_square,
+                    cover_hero, cover_grid, personal_rating, favorite
                 )
-                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+                VALUES ($1, $2, $3, $4, to_timestamp($5), $6, $7, $8, $9, $10, $11, $12)
                 RETURNING *;    
                 `, [
                 input.title,
                 input.steam_id,
                 input.developer,
                 input.release_date,
+                input.rtime_last_played,
                 input.playtime,
                 input.status,
                 input.cover_square ?? null,
@@ -120,14 +121,14 @@ export class GamesModel implements IGamesModel {
         try {
             const result = await pool.query(`
                 SELECT * FROM games;
-                `);
-                
-                return result.rows;
-            } catch (error) {
-                console.error(error);
-                throw dbError("Erro ao buscar jogos.", error);
-            }
+            `);
+            
+            return result.rows;
+        } catch (error) {
+            console.error(error);
+            throw dbError("Erro ao buscar jogos.", error);
         }
+    }
         
     public async getAllGamesWithGenres(): Promise<GameWithGenres[]> {
         try {
@@ -161,13 +162,14 @@ export class GamesModel implements IGamesModel {
                     steam_id = $3,
                     developer = $4,
                     release_date = $5,
-                    playtime = $6,
-                    status = $7,
-                    cover_square = $8,
-                    cover_hero = $9,
-                    cover_grid = $10,
-                    personal_rating = $11,
-                    favorite = $12
+                    rtime_last_played = to_timestamp($6),
+                    playtime = $7,
+                    status = $8,
+                    cover_square = $9,
+                    cover_hero = $10,
+                    cover_grid = $11,
+                    personal_rating = $12,
+                    favorite = $13
                 WHERE id = $1
                 RETURNING *;
             `, [
@@ -176,6 +178,7 @@ export class GamesModel implements IGamesModel {
                 input.steam_id,
                 input.developer,
                 input.release_date,
+                input.rtime_last_played,
                 input.playtime,
                 input.status,
                 input.cover_square ?? null,
