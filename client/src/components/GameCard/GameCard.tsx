@@ -8,6 +8,7 @@ import clock from '../../assets/icons/clock.svg';
 import menuArrow from '../../assets/icons/menu-arrow.svg';
 
 interface GameCardsProps {
+    id: string;
     img: string;
     name: string;
     status: 'completed' | 'not-played' | 'played' | 'playing';
@@ -21,7 +22,7 @@ const statusConfig = {
     completed: { icon: completed, label: 'Zerado' },
 };
 
-const GameCard: React.FC<GameCardsProps> = ({ img, name, status, playtime }) => {
+const GameCard: React.FC<GameCardsProps> = ({ id, img, name, status, playtime }) => {
     const currentStatus = statusConfig[status];
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [isChangeStatusMenuOpen, setIsChangeStatusMenuOpen] = useState<boolean>(false);
@@ -69,6 +70,10 @@ const GameCard: React.FC<GameCardsProps> = ({ img, name, status, playtime }) => 
         setIsChangeStatusMenuOpen(false);
         setIsAddToCollectionMenuOpen(false);
         console.log(name);
+    }
+
+    const handleStartGame = (id: string) => {
+        window.location.href = `steam://rungameid/${id}`;
     }
 
     return (
@@ -131,6 +136,7 @@ const GameCard: React.FC<GameCardsProps> = ({ img, name, status, playtime }) => 
                 </div>
             )}
             <img
+                onClick={() => handleStartGame(id)}
                 onContextMenu={(e) => {
                     e.preventDefault();
                     setMenuPos({ x: e.clientX, y: e.clientY });

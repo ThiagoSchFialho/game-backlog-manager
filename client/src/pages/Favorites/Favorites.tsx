@@ -46,6 +46,7 @@ const Favorites: React.FC = () => {
                             favoriteGames.map(game => (
                                 <GameCard
                                     key={game.id}
+                                    id={game.steam_id}
                                     img={getGameCover(game.title)}
                                     name={game.title}
                                     status={game.status}
