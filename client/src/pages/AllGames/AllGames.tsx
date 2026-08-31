@@ -5,7 +5,7 @@ import SideMenu from '../../components/SideMenu/SideMenu';
 import GameCard from '../../components/GameCard/GameCard';
 import sync from '../../assets/icons/sync.svg';
 import { getGameCover } from '../../utils/getGameCover';
-import type { Game } from '../../mocks/gamesMock';
+import type { Game } from '../../types/gamesType';
 import { useDb } from '../../hooks/useDb';
 
 const AllGames: React.FC = () => {

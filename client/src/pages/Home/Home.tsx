@@ -6,7 +6,7 @@ import SideMenu from '../../components/SideMenu/SideMenu';
 import GameCard from '../../components/GameCard/GameCard';
 import { getGameCover } from '../../utils/getGameCover';
 import { useDb } from '../../hooks/useDb';
-import type { Game } from '../../mocks/gamesMock';
+import type { Game } from '../../types/gamesType';
 
 import gamepadInfo from '../../assets/icons/gamepad-info.svg';
 import checkInfo from '../../assets/icons/check-info.svg';

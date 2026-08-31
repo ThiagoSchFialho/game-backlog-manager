@@ -3,7 +3,7 @@ import './styles.css';
 import Header from '../../components/Header/Header';
 import SideMenu from '../../components/SideMenu/SideMenu';
 import CollectionFolder from '../../components/CollectionFolder/CollectionFolder';
-import type { ICollection } from '../../mocks/collectionsMock';
+import type { ICollection } from '../../types/collectionsType';
 import { useDb } from '../../hooks/useDb';
 
 const Collections: React.FC = () => {

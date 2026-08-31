@@ -5,7 +5,7 @@ import Header from '../../components/Header/Header';
 import SideMenu from '../../components/SideMenu/SideMenu';
 import GameCard from '../../components/GameCard/GameCard';
 import { getGameCover } from '../../utils/getGameCover';
-import type { ICollection } from '../../mocks/collectionsMock';
+import type { ICollection } from '../../types/collectionsType';
 import { useDb } from '../../hooks/useDb';
 
 export type GameStatus = 'completed' | 'not-played' | 'played' | 'playing';

@@ -14,7 +14,7 @@ import checkSelected from '../../assets/icons/check-selected.svg';
 import listSelected from '../../assets/icons/list-selected.svg';
 import folderSelected from '../../assets/icons/folder-selected.svg';
 import { useNavigate } from 'react-router-dom';
-import type { ICollection } from '../../mocks/collectionsMock';
+import type { ICollection } from '../../types/collectionsType';
 import { useDb } from '../../hooks/useDb';
 
 interface SideMenuProps {

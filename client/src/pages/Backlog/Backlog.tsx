@@ -4,7 +4,7 @@ import Header from '../../components/Header/Header';
 import SideMenu from '../../components/SideMenu/SideMenu';
 import GameCard from '../../components/GameCard/GameCard';
 import { getGameCover } from '../../utils/getGameCover';
-import type { Game } from '../../mocks/gamesMock';
+import type { Game } from '../../types/gamesType';
 import { useDb } from '../../hooks/useDb';
 
 
