@@ -35,8 +35,20 @@ function delay(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-function getStatus(playtime: number): string {
-    return playtime > 0 ? "played" : "not-played";
+function resolveStatus(
+    sg: SteamOwnedGame,
+    existingGame: any,
+    isRecentlyPlayed: boolean
+): string {
+    if (existingGame?.status === 'completed') {
+        return 'completed';
+    }
+
+    if (isRecentlyPlayed) {
+        return 'playing';
+    }
+
+    return sg.playtime_forever > 0 ? 'played' : 'not-played';
 }
 
 async function fetchAppDetails(appid: number): Promise<AppDetails | null> {
@@ -85,7 +97,17 @@ async function syncGames(
     options: { updateExisting: boolean }
 ): Promise<SyncResult[]> {
     const existingGames = await gamesModel.getAllGames();
-    const existingBySteamId = new Map(existingGames.map((g: any) => [Number(g.steam_id), g]));
+    const existingBySteamId = new Map(
+        existingGames.map((g: any) => [Number(g.steam_id), g])
+    );
+
+    const recentlyPlayedIds = new Set(
+        steamGames
+            .filter((sg) => (sg.rtime_last_played ?? 0) > 0)
+            .sort((a, b) => (b.rtime_last_played ?? 0) - (a.rtime_last_played ?? 0))
+            .slice(0, 5)
+            .map((sg) => sg.appid)
+    );
 
     const results: SyncResult[] = [];
 
@@ -113,10 +135,10 @@ async function syncGames(
                         title: sg.name,
                         steam_id: sg.appid,
                         playtime: sg.playtime_forever,
-                        status: getStatus(sg.playtime_forever),
+                        status: resolveStatus(sg, gameCheck, recentlyPlayedIds.has(sg.appid)),
                         developer: details?.developer ?? gameCheck?.developer ?? null,
                         release_date: details?.release_date ?? gameCheck?.release_date ?? null,
-                        rtime_last_played: String(sg.rtime_last_played) ?? '0',
+                        rtime_last_played: String(sg.rtime_last_played ?? 0),
                         cover_square: buildCoverSquare(sg) ?? gameCheck?.cover_square,
                         cover_hero: details?.cover_hero ?? gameCheck?.cover_hero ?? undefined,
                         cover_grid: gameCheck?.cover_grid ?? undefined,
