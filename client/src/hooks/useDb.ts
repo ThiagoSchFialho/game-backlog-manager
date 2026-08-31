@@ -6,12 +6,12 @@ export const useDb = () => {
             const response = await fetch (`${host}/games`);
             const data = await response.json();
 
-            if (response.ok) {
-                return data;
-            } else {
+            if (!response.ok) {
                 console.error("Erro ao carregar jogos.", data.error);
-                return data;
+                return null;
             }
+
+            return data;
 
         } catch (error) {
             console.error("Erro ao carregar jogos.", error);
@@ -23,17 +23,88 @@ export const useDb = () => {
             const response = await fetch (`${host}/collections/with-games`);
             const data = await response.json();
 
-            if (response.ok) {
-                return data;
-            } else {
+            if (!response.ok) {
                 console.error("Erro ao carregar coleções.", data.error);
-                return data;
+                return null;
             }
+
+            return data;
 
         } catch (error) {
             console.error("Erro ao carregar coleções.", error);
         }
     }
 
-    return {fetchGames, fetchCollections}
+    const getGameBySteamId = async (id: string) => {
+        try {
+            const response = await fetch (`${host}/games?steam_id=${id}`);
+            const data = await response.json();
+
+            if (!response.ok) {
+                console.error("Erro ao carregar jogos.", data.error);
+                return null;
+            }
+
+            return data;
+
+        } catch (error) {
+            console.error("Erro ao carregar jogos.", error);
+        }
+    }
+
+    const updateStatus = async (id: string, status: string) => {
+        const game = await getGameBySteamId(id);
+        if (!game) {
+            console.error("Jogo não encontrado:", id);
+            return null;
+        }
+
+        const dataISO = game.rtime_last_played;
+
+        const timestampMs = new Date(dataISO).getTime();
+        const timestampSegundos = Math.floor(timestampMs / 1000);
+        
+        const updatedGame = { ...game, status, rtime_last_played: timestampSegundos };
+
+        console.log(updatedGame);
+
+        try {
+            const response = await fetch (`${host}/games/${updatedGame.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedGame)
+            });
+            const data = await response.json();
+
+            if (!response.ok) {
+                console.error("Erro ao atualizar status.", data.error);
+                return null;
+            }
+
+            return data;
+        } catch (error) {
+            console.error("Erro ao atualizar status.", error);
+        }
+    }
+
+    const syncSteam = async () => {
+        try {
+            const response = await fetch (`${host}/steam-api/sync-and-update-games-from-steam`);
+            const data = await response.json();
+
+            if (!response.ok) {
+                console.error("Erro ao sincronizar jogos.", data.error);
+                return null;
+            }
+
+            return data;
+
+        } catch (error) {
+            console.error("Erro ao sincronizar jogos.", error);
+        }
+    }
+
+    return {fetchGames, fetchCollections, updateStatus, syncSteam}
 }

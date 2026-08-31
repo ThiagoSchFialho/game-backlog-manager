@@ -6,6 +6,7 @@ import notPlayed from '../../assets/icons/not-played.svg';
 import completed from '../../assets/icons/completed.svg';
 import clock from '../../assets/icons/clock.svg';
 import menuArrow from '../../assets/icons/menu-arrow.svg';
+import { useDb } from '../../hooks/useDb';
 
 interface GameCardsProps {
     id: string;
@@ -23,6 +24,7 @@ const statusConfig = {
 };
 
 const GameCard: React.FC<GameCardsProps> = ({ id, img, name, status, playtime }) => {
+    const { updateStatus } = useDb();
     const currentStatus = statusConfig[status];
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [isChangeStatusMenuOpen, setIsChangeStatusMenuOpen] = useState<boolean>(false);
@@ -37,38 +39,42 @@ const GameCard: React.FC<GameCardsProps> = ({ id, img, name, status, playtime })
         }
     };
 
+    const closeMenus = () => {
+        setIsMenuOpen(false);
+        setIsChangeStatusMenuOpen(false);
+        setIsAddToCollectionMenuOpen(false);
+    }
+
     const scheduleClose = () => {
         cancelClose();
         closeTimeoutRef.current = setTimeout(() => {
-            setIsMenuOpen(false);
-            setIsChangeStatusMenuOpen(false);
-            setIsAddToCollectionMenuOpen(false);
+            closeMenus();
         }, 150);
     };
 
     const handleAddToFavorites = (name: string) => {
-        setIsMenuOpen(false);
-        setIsChangeStatusMenuOpen(false);
-        setIsAddToCollectionMenuOpen(false);
+        closeMenus();
         console.log(name);
     }    
 
-    const handleStatusChange = (name: string, status: string) => {
-        setIsMenuOpen(false);
-        setIsChangeStatusMenuOpen(false);
-        console.log(`${name} ${status}`);
+    const handleStatusChange = async (id: string, status: string) => {
+        closeMenus();
+        const result = await updateStatus(id, status);
+
+        if (!result) {
+            return;
+        }
+
+        window.location.reload();
     }
 
     const handleAddToCollection = (name: string) => {
-        setIsMenuOpen(false);
-        setIsAddToCollectionMenuOpen(false);
+        closeMenus();
         console.log(name);
     }
 
     const handleHideGame = (name: string) => {
-        setIsMenuOpen(false);
-        setIsChangeStatusMenuOpen(false);
-        setIsAddToCollectionMenuOpen(false);
+        closeMenus();
         console.log(name);
     }
 
@@ -113,10 +119,10 @@ const GameCard: React.FC<GameCardsProps> = ({ id, img, name, status, playtime })
                     className="custom-menu"
                 >
                     <ul>
-                        <li onClick={() => handleStatusChange(name, 'completed')}>Zerado</li>
-                        <li onClick={() => handleStatusChange(name, 'playing')}>Jogando</li>
-                        <li onClick={() => handleStatusChange(name, 'played')}>Jogado</li>
-                        <li onClick={() => handleStatusChange(name, 'not-played')}>Não jogado</li>
+                        <li onClick={() => handleStatusChange(id, 'completed')}>Zerado</li>
+                        <li onClick={() => handleStatusChange(id, 'playing')}>Jogando</li>
+                        <li onClick={() => handleStatusChange(id, 'played')}>Jogado</li>
+                        <li onClick={() => handleStatusChange(id, 'not-played')}>Não jogado</li>
                     </ul>
                 </div>
             )}
