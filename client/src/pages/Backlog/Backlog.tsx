@@ -8,9 +8,11 @@ import type { Game } from '../../types/gamesType';
 import { useDb } from '../../hooks/useDb';
 
 function sortByRecentlyPlayed(games: Game[]): Game[] {
-    return [...games].sort((a, b) =>
-        Number(b.rtime_last_played ?? 0) - Number(a.rtime_last_played ?? 0)
-    );
+    return [...games].sort((a, b) => {
+        const timeA = a.rtime_last_played ? new Date(a.rtime_last_played).getTime() : 0;
+        const timeB = b.rtime_last_played ? new Date(b.rtime_last_played).getTime() : 0;
+        return timeB - timeA;
+    });
 }
 
 function sortByTitle(games: Game[]): Game[] {
