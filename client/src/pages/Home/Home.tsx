@@ -14,6 +14,26 @@ import playInfo from '../../assets/icons/play-info.svg';
 import clockInfo from '../../assets/icons/clock-info.svg';
 import sync from '../../assets/icons/sync.svg';
 
+function sortByRecentlyPlayed(games: Game[]): Game[] {
+    return [...games].sort((a, b) => {
+        const timeA = a.rtime_last_played ? new Date(a.rtime_last_played).getTime() : 0;
+        const timeB = b.rtime_last_played ? new Date(b.rtime_last_played).getTime() : 0;
+        return timeB - timeA;
+    });
+}
+
+function sortByTitle(games: Game[]): Game[] {
+    return [...games].sort((a, b) =>
+        a.title.localeCompare(b.title, 'pt-BR', { sensitivity: 'base' })
+    );
+}
+
+function sortByPlaytime(games: Game[]): Game[] {
+    return [...games].sort((a, b) =>
+        Number(b.playtime ?? 0) - Number(a.playtime ?? 0)
+    );
+}
+
 const Home: React.FC = () => {
     const navigation = useNavigate();
     const { fetchGames } = useDb();
@@ -34,9 +54,9 @@ const Home: React.FC = () => {
     }, []);
     
     const notPlayedGames = gamesList.filter(game => game.status === 'not-played');
-    const playedGames = gamesList.filter(game => game.status === 'played');
-    const completedGames = gamesList.filter(game => game.status === 'completed');
-    const playingGames = gamesList.filter(game => game.status === 'playing');
+    const playedGames = sortByTitle(gamesList.filter(game => game.status === 'played'));
+    const completedGames = sortByPlaytime(gamesList.filter(game => game.status === 'completed'));
+    const playingGames = sortByRecentlyPlayed(gamesList.filter(game => game.status === 'playing'));
     
     const calcFullPlaytime = () => {
         let fullPlayTime = 0;
@@ -77,7 +97,7 @@ const Home: React.FC = () => {
                                 <img src={playInfo} alt="verificado" />
                             </div>
                             <div className="info-card-text-container green-text">
-                                <h1 className="info-card-title">{playedGames.length}</h1>
+                                <h1 className="info-card-title">{playedGames.length + completedGames.length + playingGames.length}</h1>
                                 <p className="info-card-text">Jogos Iniciados</p>
                             </div>
                         </div>

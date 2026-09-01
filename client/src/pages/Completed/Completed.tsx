@@ -7,6 +7,12 @@ import { getGameCover } from '../../utils/getGameCover';
 import type { Game } from '../../types/gamesType';
 import { useDb } from '../../hooks/useDb';
 
+function sortByTitle(games: Game[]): Game[] {
+    return [...games].sort((a, b) =>
+        a.title.localeCompare(b.title, 'pt-BR', { sensitivity: 'base' })
+    );
+}
+
 const Completed: React.FC = () => {
     const { fetchGames } = useDb();
     const [steamApiConnected, setSteamApiConnected] = useState(false);
@@ -25,7 +31,7 @@ const Completed: React.FC = () => {
         getGames();
     }, []);
 
-    const completedGames = gamesList.filter(game => game.status === "completed");
+    const completedGames = sortByTitle(gamesList.filter(game => game.status === "completed"));
 
     return (
         <>
