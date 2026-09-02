@@ -6,20 +6,7 @@ import GameCard from '../../components/GameCard/GameCard';
 import { getGameCover } from '../../utils/getGameCover';
 import type { Game } from '../../types/gamesType';
 import { useDb } from '../../hooks/useDb';
-
-function sortByRecentlyPlayed(games: Game[]): Game[] {
-    return [...games].sort((a, b) => {
-        const timeA = a.rtime_last_played ? new Date(a.rtime_last_played).getTime() : 0;
-        const timeB = b.rtime_last_played ? new Date(b.rtime_last_played).getTime() : 0;
-        return timeB - timeA;
-    });
-}
-
-function sortByTitle(games: Game[]): Game[] {
-    return [...games].sort((a, b) =>
-        a.title.localeCompare(b.title, 'pt-BR', { sensitivity: 'base' })
-    );
-}
+import { orderBy } from '../../utils/orderBy';
 
 const Backlog: React.FC = () => {
     const { fetchGames } = useDb();
@@ -39,9 +26,9 @@ const Backlog: React.FC = () => {
         getGames();
     }, []);
         
-    const playingGames = sortByRecentlyPlayed(gamesList.filter(game => game.status === 'playing'));
-    const playedGames = sortByTitle(gamesList.filter(game => game.status === 'played'));
-    const notPlayedGames = sortByTitle(gamesList.filter(game => game.status === 'not-played'));
+    const playingGames = orderBy(gamesList.filter(game => game.status === 'playing'), 'rtime_last_played', 'desc');
+    const playedGames = orderBy(gamesList.filter(game => game.status === 'played'), 'title', 'asc');
+    const notPlayedGames = orderBy(gamesList.filter(game => game.status === 'not-played'), 'title', 'asc');
 
     return (
         <>

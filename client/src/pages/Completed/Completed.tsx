@@ -6,12 +6,7 @@ import GameCard from '../../components/GameCard/GameCard';
 import { getGameCover } from '../../utils/getGameCover';
 import type { Game } from '../../types/gamesType';
 import { useDb } from '../../hooks/useDb';
-
-function sortByTitle(games: Game[]): Game[] {
-    return [...games].sort((a, b) =>
-        a.title.localeCompare(b.title, 'pt-BR', { sensitivity: 'base' })
-    );
-}
+import { orderBy } from '../../utils/orderBy';
 
 const Completed: React.FC = () => {
     const { fetchGames } = useDb();
@@ -31,7 +26,7 @@ const Completed: React.FC = () => {
         getGames();
     }, []);
 
-    const completedGames = sortByTitle(gamesList.filter(game => game.status === "completed"));
+    const completedGames = orderBy(gamesList.filter(game => game.status === "completed"), 'title', 'asc');
 
     return (
         <>

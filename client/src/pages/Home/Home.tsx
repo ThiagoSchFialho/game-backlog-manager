@@ -7,32 +7,13 @@ import GameCard from '../../components/GameCard/GameCard';
 import { getGameCover } from '../../utils/getGameCover';
 import { useDb } from '../../hooks/useDb';
 import type { Game } from '../../types/gamesType';
+import { orderBy } from '../../utils/orderBy';
 
 import gamepadInfo from '../../assets/icons/gamepad-info.svg';
 import checkInfo from '../../assets/icons/check-info.svg';
 import playInfo from '../../assets/icons/play-info.svg';
 import clockInfo from '../../assets/icons/clock-info.svg';
 import sync from '../../assets/icons/sync.svg';
-
-function sortByRecentlyPlayed(games: Game[]): Game[] {
-    return [...games].sort((a, b) => {
-        const timeA = a.rtime_last_played ? new Date(a.rtime_last_played).getTime() : 0;
-        const timeB = b.rtime_last_played ? new Date(b.rtime_last_played).getTime() : 0;
-        return timeB - timeA;
-    });
-}
-
-function sortByTitle(games: Game[]): Game[] {
-    return [...games].sort((a, b) =>
-        a.title.localeCompare(b.title, 'pt-BR', { sensitivity: 'base' })
-    );
-}
-
-function sortByPlaytime(games: Game[]): Game[] {
-    return [...games].sort((a, b) =>
-        Number(b.playtime ?? 0) - Number(a.playtime ?? 0)
-    );
-}
 
 const Home: React.FC = () => {
     const navigation = useNavigate();
@@ -54,9 +35,9 @@ const Home: React.FC = () => {
     }, []);
     
     const notPlayedGames = gamesList.filter(game => game.status === 'not-played');
-    const playedGames = sortByTitle(gamesList.filter(game => game.status === 'played'));
-    const completedGames = sortByPlaytime(gamesList.filter(game => game.status === 'completed'));
-    const playingGames = sortByRecentlyPlayed(gamesList.filter(game => game.status === 'playing'));
+    const playedGames = orderBy(gamesList.filter(game => game.status === 'played'), 'title', 'asc');
+    const completedGames = orderBy(gamesList.filter(game => game.status === 'completed'), 'playtime', 'desc');
+    const playingGames = orderBy(gamesList.filter(game => game.status === 'playing'), 'rtime_last_played', 'desc');
     
     const calcFullPlaytime = () => {
         let fullPlayTime = 0;
