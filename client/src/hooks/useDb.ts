@@ -89,6 +89,13 @@ export const useDb = () => {
 
     const addToCollection = async (gameId: number, collectionId: number) => {
         try {
+            const checkCollection = await fetch (`${host}/collection-games/game/${gameId}`);
+            const collectionData = await checkCollection.json();
+            
+            if (Number(collectionData.collection_id) === collectionId) {
+                return {error: "Esse jogo já está nessa coleção."};
+            }
+
             const response = await fetch (`${host}/collection-games`, {
                 method: 'POST',
                 headers: {

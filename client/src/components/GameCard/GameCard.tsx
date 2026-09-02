@@ -85,7 +85,9 @@ const GameCard: React.FC<GameCardsProps> = ({ id, steamId, img, name, status, pl
             return;
         }
 
-        window.location.reload();
+        if (result.error) {
+            alert(result.error);
+        }
     }
 
     const handleHideGame = (name: string) => {
