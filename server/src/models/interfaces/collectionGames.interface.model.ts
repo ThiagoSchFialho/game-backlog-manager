@@ -7,4 +7,5 @@ export interface ICollectionGamesModel {
     getCollectionGamesByGameId(game_id: number): Promise<CollectionGames | undefined>;
     updateCollectionGames(id: number, collection_id: number, game_id: number): Promise<CollectionGames | undefined>;
     deleteCollectionGames(id: number): Promise<CollectionGames | undefined>;
+    deleteCollectionGamesByRelation(game_id: number, collection_id: number): Promise<CollectionGames | undefined>;
 }

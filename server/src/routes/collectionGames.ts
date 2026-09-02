@@ -103,6 +103,23 @@ router.put('/:id', async function (req: Request, res: Response) {
     }
 });
 
+router.delete('/relation', async function (req: Request, res: Response) {
+    const { game_id, collection_id } = req.body;
+
+    try {
+        const collectionGame = await collectionGamesModel.deleteCollectionGamesByRelation(Number(game_id), Number(collection_id));
+
+        if (!collectionGame) {
+            return res.status(500).json({ error: "Erro ao excluir relação." });
+        }
+
+        return res.status(200).json(collectionGame);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "Erro interno do servidor." });
+    }
+});
+
 router.delete('/:id', async function (req: Request, res: Response) {
     const { id } = req.params;
 

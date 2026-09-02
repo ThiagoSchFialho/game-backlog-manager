@@ -7,7 +7,7 @@ function dbError(context: string, error: unknown): Error {
 }
 
 export class CollectionGamesModel implements ICollectionGamesModel {
-    
+        
     public async createCollectionGames(collection_id: number, game_id: number): Promise<CollectionGames> {
         try {
             const result = await pool.query(`
@@ -87,6 +87,21 @@ export class CollectionGamesModel implements ICollectionGamesModel {
                 WHERE id = $1
                 RETURNING *;
             `, [id]);
+                
+            return result.rows[0];
+        } catch (error) {
+            console.error(error);
+            throw dbError("Erro ao deletar jogo da coleção.", error);
+        }
+    }
+
+    public async deleteCollectionGamesByRelation(game_id: number, collection_id: number): Promise<CollectionGames | undefined> {
+        try {
+            const result = await pool.query(`
+                DELETE FROM collection_games
+                WHERE game_id = $1 AND collection_id = $2
+                RETURNING *;
+            `, [game_id, collection_id]);
                 
             return result.rows[0];
         } catch (error) {

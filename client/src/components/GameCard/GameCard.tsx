@@ -26,11 +26,12 @@ const statusConfig = {
 };
 
 const GameCard: React.FC<GameCardsProps> = ({ id, steamId, img, name, status, playtime }) => {
-    const { fetchCollections, addToCollection, updateStatus } = useDb();
+    const { fetchCollections, addToCollection, deleteFromCollection, updateStatus } = useDb();
     const currentStatus = statusConfig[status];
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [isChangeStatusMenuOpen, setIsChangeStatusMenuOpen] = useState<boolean>(false);
     const [isAddToCollectionMenuOpen, setIsAddToCollectionMenuOpen] = useState<boolean>(false);
+    const [isRemoveFromCollectionMenuOpen, setisRemoveFromCollectionMenuOpen] = useState<boolean>(false);
     const [menuPos, setMenuPos] = useState<{ x: number; y: number } | null>(null);
     const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const [collectionsList, setCollectionsList] = useState<ICollection[]>([]);
@@ -57,6 +58,7 @@ const GameCard: React.FC<GameCardsProps> = ({ id, steamId, img, name, status, pl
         setIsMenuOpen(false);
         setIsChangeStatusMenuOpen(false);
         setIsAddToCollectionMenuOpen(false);
+        setisRemoveFromCollectionMenuOpen(false);
     }
 
     const scheduleClose = () => {
@@ -90,6 +92,20 @@ const GameCard: React.FC<GameCardsProps> = ({ id, steamId, img, name, status, pl
         }
     }
 
+    const handleRemoveFromCollection = async (gameId: string, collectionId: string) => {
+        closeMenus();
+        const result = await deleteFromCollection(Number(gameId), Number(collectionId));
+
+        if (!result) {
+            return;
+        }
+
+        if (result.error) {
+            alert(result.error);
+        }
+        window.location.reload();
+    }
+
     const handleHideGame = (name: string) => {
         closeMenus();
         console.log(name);
@@ -112,6 +128,7 @@ const GameCard: React.FC<GameCardsProps> = ({ id, steamId, img, name, status, pl
                         <li onMouseOver={() => {
                             setIsChangeStatusMenuOpen(true);
                             setIsAddToCollectionMenuOpen(false);
+                            setisRemoveFromCollectionMenuOpen(false);
                         }}>
                             Alterar status
                             <img src={menuArrow} />
@@ -119,8 +136,17 @@ const GameCard: React.FC<GameCardsProps> = ({ id, steamId, img, name, status, pl
                         <li onMouseOver={() => {
                             setIsChangeStatusMenuOpen(false);
                             setIsAddToCollectionMenuOpen(true);
+                            setisRemoveFromCollectionMenuOpen(false);
                         }}>
                             Adicionar a coleção
+                            <img src={menuArrow} />
+                        </li>
+                        <li onMouseOver={() => {
+                            setIsChangeStatusMenuOpen(false);
+                            setIsAddToCollectionMenuOpen(false);
+                            setisRemoveFromCollectionMenuOpen(true);
+                        }}>
+                            Remover da coleção
                             <img src={menuArrow} />
                         </li>
                         <li onClick={() => handleHideGame(name)}>Ocultar</li>
@@ -150,8 +176,22 @@ const GameCard: React.FC<GameCardsProps> = ({ id, steamId, img, name, status, pl
                     className="custom-menu"
                 >
                     <ul>
-                        {collectionsList.map(collection => (
+                        {collectionsList.slice(0, 4).map(collection => (
                             <li onClick={() => handleAddToCollection(id, collection.id)}>{collection.title}</li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+            {menuPos && isRemoveFromCollectionMenuOpen && (
+                <div
+                    onMouseEnter={cancelClose}
+                    onMouseLeave={scheduleClose}
+                    style={{ position: 'fixed', top: (menuPos.y + 60), left: (menuPos.x + 240) }}
+                    className="custom-menu"
+                >
+                    <ul>
+                        {collectionsList.slice(0, 4).map(collection => (
+                            <li onClick={() => handleRemoveFromCollection(id, collection.id)}>{collection.title}</li>
                         ))}
                     </ul>
                 </div>
