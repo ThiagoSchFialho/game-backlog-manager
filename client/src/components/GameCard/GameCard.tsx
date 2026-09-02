@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './styles.css';
 import playing from '../../assets/icons/playing.svg';
 import played from '../../assets/icons/played.svg';
@@ -7,9 +7,11 @@ import completed from '../../assets/icons/completed.svg';
 import clock from '../../assets/icons/clock.svg';
 import menuArrow from '../../assets/icons/menu-arrow.svg';
 import { useDb } from '../../hooks/useDb';
+import type { ICollection } from '../../types/collectionsType';
 
 interface GameCardsProps {
     id: string;
+    steamId: string;
     img: string;
     name: string;
     status: 'completed' | 'not-played' | 'played' | 'playing';
@@ -23,14 +25,26 @@ const statusConfig = {
     completed: { icon: completed, label: 'Zerado' },
 };
 
-const GameCard: React.FC<GameCardsProps> = ({ id, img, name, status, playtime }) => {
-    const { updateStatus } = useDb();
+const GameCard: React.FC<GameCardsProps> = ({ id, steamId, img, name, status, playtime }) => {
+    const { fetchCollections, addToCollection, updateStatus } = useDb();
     const currentStatus = statusConfig[status];
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [isChangeStatusMenuOpen, setIsChangeStatusMenuOpen] = useState<boolean>(false);
     const [isAddToCollectionMenuOpen, setIsAddToCollectionMenuOpen] = useState<boolean>(false);
     const [menuPos, setMenuPos] = useState<{ x: number; y: number } | null>(null);
     const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const [collectionsList, setCollectionsList] = useState<ICollection[]>([]);
+    
+    useEffect(() => {
+        const getCollections = async () => {
+            const collections = await fetchCollections();
+            if (collections) {
+                setCollectionsList(collections);
+            }
+        }
+        
+        getCollections();
+    }, []);
 
     const cancelClose = () => {
         if (closeTimeoutRef.current) {
@@ -50,12 +64,7 @@ const GameCard: React.FC<GameCardsProps> = ({ id, img, name, status, playtime })
         closeTimeoutRef.current = setTimeout(() => {
             closeMenus();
         }, 150);
-    };
-
-    const handleAddToFavorites = (name: string) => {
-        closeMenus();
-        console.log(name);
-    }    
+    }; 
 
     const handleStatusChange = async (id: string, status: string) => {
         closeMenus();
@@ -68,9 +77,15 @@ const GameCard: React.FC<GameCardsProps> = ({ id, img, name, status, playtime })
         window.location.reload();
     }
 
-    const handleAddToCollection = (name: string) => {
+    const handleAddToCollection = async (gameId: string, collectionId: string) => {
         closeMenus();
-        console.log(name);
+        const result = await addToCollection(Number(gameId), Number(collectionId));
+
+        if (!result) {
+            return;
+        }
+
+        window.location.reload();
     }
 
     const handleHideGame = (name: string) => {
@@ -78,8 +93,8 @@ const GameCard: React.FC<GameCardsProps> = ({ id, img, name, status, playtime })
         console.log(name);
     }
 
-    const handleStartGame = (id: string) => {
-        window.location.href = `steam://rungameid/${id}`;
+    const handleStartGame = (steamId: string) => {
+        window.location.href = `steam://rungameid/${steamId}`;
     }
 
     return (
@@ -99,7 +114,6 @@ const GameCard: React.FC<GameCardsProps> = ({ id, img, name, status, playtime })
                             Alterar status
                             <img src={menuArrow} />
                         </li>
-                        <li onClick={() => handleAddToFavorites(name)}>Favoritar</li>
                         <li onMouseOver={() => {
                             setIsChangeStatusMenuOpen(false);
                             setIsAddToCollectionMenuOpen(true);
@@ -134,15 +148,14 @@ const GameCard: React.FC<GameCardsProps> = ({ id, img, name, status, playtime })
                     className="custom-menu"
                 >
                     <ul>
-                        <li onClick={() => handleAddToCollection(name)}>Assassin's Creed</li>
-                        <li onClick={() => handleAddToCollection(name)}>Mundo Aberto</li>
-                        <li onClick={() => handleAddToCollection(name)}>Doom</li>
-                        <li onClick={() => handleAddToCollection(name)}>Valve</li>
+                        {collectionsList.map(collection => (
+                            <li onClick={() => handleAddToCollection(id, collection.id)}>{collection.title}</li>
+                        ))}
                     </ul>
                 </div>
             )}
             <img
-                onClick={() => handleStartGame(id)}
+                onClick={() => handleStartGame(steamId)}
                 onContextMenu={(e) => {
                     e.preventDefault();
                     setMenuPos({ x: e.clientX, y: e.clientY });

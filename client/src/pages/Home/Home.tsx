@@ -114,7 +114,8 @@ const Home: React.FC = () => {
                                 {playingGames.slice(0, 4).map(game => (
                                     <GameCard
                                         key={game.id}
-                                        id={game.steam_id}
+                                        id={game.id}
+                                        steamId={game.steam_id}
                                         img={getGameCover(game.title)}
                                         name={game.title}
                                         status={game.status}

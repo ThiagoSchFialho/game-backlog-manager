@@ -35,9 +35,9 @@ export const useDb = () => {
         }
     }
 
-    const getGameBySteamId = async (id: string) => {
+    const getGameById = async (id: string) => {
         try {
-            const response = await fetch (`${host}/games?steam_id=${id}`);
+            const response = await fetch (`${host}/games/${id}`);
             const data = await response.json();
 
             if (!response.ok) {
@@ -53,7 +53,7 @@ export const useDb = () => {
     }
 
     const updateStatus = async (id: string, status: string) => {
-        const game = await getGameBySteamId(id);
+        const game = await getGameById(id);
         if (!game) {
             console.error("Jogo não encontrado:", id);
             return null;
@@ -65,8 +65,6 @@ export const useDb = () => {
         const timestampSegundos = Math.floor(timestampMs / 1000);
         
         const updatedGame = { ...game, status, rtime_last_played: timestampSegundos };
-
-        console.log(updatedGame);
 
         try {
             const response = await fetch (`${host}/games/${updatedGame.id}`, {
@@ -89,6 +87,28 @@ export const useDb = () => {
         }
     }
 
+    const addToCollection = async (gameId: number, collectionId: number) => {
+        try {
+            const response = await fetch (`${host}/collection-games`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ "collection_id": collectionId, "game_id": gameId })
+            });
+            const data = await response.json();
+
+            if (!response.ok) {
+                console.error("Erro ao adicionar jogo a coleção.", data.error);
+                return null;
+            }
+
+            return data;
+        } catch (error) {
+            console.error("Erro ao adicionar jogo a coleção.", error);
+        }
+    }
+
     const syncSteam = async () => {
         try {
             const response = await fetch (`${host}/steam-api/sync-and-update-games-from-steam`);
@@ -106,5 +126,5 @@ export const useDb = () => {
         }
     }
 
-    return {fetchGames, fetchCollections, updateStatus, syncSteam}
+    return {fetchGames, fetchCollections, updateStatus, addToCollection, syncSteam}
 }
