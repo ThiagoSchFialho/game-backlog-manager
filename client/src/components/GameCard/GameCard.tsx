@@ -176,7 +176,7 @@ const GameCard: React.FC<GameCardsProps> = ({ id, steamId, img, name, status, pl
                     className="custom-menu"
                 >
                     <ul>
-                        {collectionsList.slice(0, 4).map(collection => (
+                        {collectionsList.map(collection => (
                             <li onClick={() => handleAddToCollection(id, collection.id)}>{collection.title}</li>
                         ))}
                     </ul>
@@ -190,7 +190,7 @@ const GameCard: React.FC<GameCardsProps> = ({ id, steamId, img, name, status, pl
                     className="custom-menu"
                 >
                     <ul>
-                        {collectionsList.slice(0, 4).map(collection => (
+                        {collectionsList.map(collection => (
                             <li onClick={() => handleRemoveFromCollection(id, collection.id)}>{collection.title}</li>
                         ))}
                     </ul>

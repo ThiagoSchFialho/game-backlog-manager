@@ -73,7 +73,7 @@ const SideMenu: React.FC<SideMenuProps> = ({currentPage}) => {
                 <div className="collection-section">
                     <h1 onClick={() => navigation('/collections')} className={selected === 'collections' ? 'selected' : ''}>Coleções</h1>
                     <ul className="side-menu-list collection-list">
-                        {collectionsList.map(collection => {
+                        {collectionsList.slice(0, 4).map(collection => {
                             const path = `/collection/${collection.id}`;
                             const isSelected = location.pathname === path;
 
