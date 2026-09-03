@@ -58,32 +58,25 @@ const GameCard: React.FC<GameCardsProps> = ({ id, steamId, img, name, status, pl
     }
 
     const changeStatus = async (id: string, status: string) => {
+        const MAX_PLAYING_GAMES = 5;
 
-        if (status !== "playing") {
+        if (status === "playing") {
             const games = await getGames();
-            const playingGames = games.filter((game: Game) => (game.status === "playing"));
+            const playingGames = games.filter((game: Game) => game.status === "playing");
+            const orderedPlayingGames = orderBy(playingGames, "rtime_last_played", "asc");
 
-            const orderdPlayingGames = orderBy(playingGames, "rtime_last_played", "asc");
-
-            if (orderdPlayingGames.length === 5) {
-                const result = await updateStatus(orderdPlayingGames[0].id, "played");
-                if (!result) {
-                    return;
-                }
-            }
-
-            const result2 = await updateStatus(id, "playing");
-            if (!result2) {
-                return;
+            if (orderedPlayingGames.length >= MAX_PLAYING_GAMES) {
+                const oldestGame = orderedPlayingGames[0];
+                const freedSlot = await updateStatus(oldestGame.id, "played");
+                if (!freedSlot) return;
             }
         }
-        const result = await updateStatus(id, status);
-        if (!result) {
-            return;
-        }
+
+        const updated = await updateStatus(id, status);
+        if (!updated) return;
 
         window.location.reload();
-    }
+    };
 
     const cancelClose = () => {
         if (closeTimeoutRef.current) {
