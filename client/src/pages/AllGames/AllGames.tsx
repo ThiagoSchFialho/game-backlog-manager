@@ -3,10 +3,10 @@ import './styles.css';
 import Header from '../../components/Header/Header';
 import SideMenu from '../../components/SideMenu/SideMenu';
 import GameCard from '../../components/GameCard/GameCard';
-import sync from '../../assets/icons/sync.svg';
 import { getGameCover } from '../../utils/getGameCover';
 import type { Game } from '../../types/gamesType';
 import { useDb } from '../../hooks/useDb';
+import SyncSteamBtn from '../../components/syncSteamBtn/SyncSteamBtn';
 
 const AllGames: React.FC = () => {
     const { fetchGames } = useDb();
@@ -90,10 +90,7 @@ const AllGames: React.FC = () => {
                 <div className="all-games-main-content">
                     <div className="page-header">
                         <h1 className="title">Todos os jogos</h1>
-                        <div className="sync-steam-btn-container">
-                            <img src={sync} alt="sincronizar" />
-                            <div className="sync-steam-btn">Sincronizar Steam</div>
-                        </div>
+                        <SyncSteamBtn />
                     </div>
 
                     <div className="game-filter-container">

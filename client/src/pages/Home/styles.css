@@ -1,3 +1,12 @@
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 body {
     background-color: var(--bg-secondary);
 }
@@ -25,23 +34,6 @@ body {
 
 .content-header-text p {
     color: var(--text-secondary);
-}
-
-.sync-steam-btn-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background-color: var(--primary);
-    border-radius: 5px;
-    padding: 10px 30px;
-    cursor: pointer;
-}
-
-.sync-steam-btn {
-    background-color: var(--primary);
-    font-size: 16px;
-    font-weight: 700;
-    border: none;
 }
 
 .info-cards-container {

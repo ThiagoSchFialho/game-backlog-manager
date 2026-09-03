@@ -7,6 +7,7 @@ import { getGameCover } from '../../utils/getGameCover';
 import type { Game } from '../../types/gamesType';
 import { useDb } from '../../hooks/useDb';
 import { orderBy } from '../../utils/orderBy';
+import SyncSteamBtn from '../../components/syncSteamBtn/SyncSteamBtn';
 
 const Backlog: React.FC = () => {
     const { fetchGames } = useDb();
@@ -39,6 +40,7 @@ const Backlog: React.FC = () => {
                 <div className="backlog-main-content">
                     <div className="page-header">
                         <h1 className="title">Backlog</h1>
+                        <SyncSteamBtn />
                     </div>
 
                     <div className="backlog-games-container backlog-playing-games">

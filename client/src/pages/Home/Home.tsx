@@ -13,7 +13,7 @@ import gamepadInfo from '../../assets/icons/gamepad-info.svg';
 import checkInfo from '../../assets/icons/check-info.svg';
 import playInfo from '../../assets/icons/play-info.svg';
 import clockInfo from '../../assets/icons/clock-info.svg';
-import sync from '../../assets/icons/sync.svg';
+import SyncSteamBtn from '../../components/syncSteamBtn/SyncSteamBtn';
 
 const Home: React.FC = () => {
     const navigation = useNavigate();
@@ -57,10 +57,7 @@ const Home: React.FC = () => {
                             <h1>Bem vindo, Thiago!</h1>
                             <p>Aqui está um resumo dos jogos na sua biblioteca</p>
                         </div>
-                        <div className="sync-steam-btn-container">
-                            <img src={sync} alt="sincronizar" />
-                            <div className="sync-steam-btn">Sincronizar Steam</div>
-                        </div>
+                        <SyncSteamBtn />
                     </div>
 
                     <div className="info-cards-container">
