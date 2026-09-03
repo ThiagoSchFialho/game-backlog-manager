@@ -8,6 +8,8 @@ import clock from '../../assets/icons/clock.svg';
 import menuArrow from '../../assets/icons/menu-arrow.svg';
 import { useDb } from '../../hooks/useDb';
 import type { ICollection } from '../../types/collectionsType';
+import type { Game } from '../../types/gamesType';
+import { orderBy } from '../../utils/orderBy';
 
 interface GameCardsProps {
     id: string;
@@ -26,7 +28,7 @@ const statusConfig = {
 };
 
 const GameCard: React.FC<GameCardsProps> = ({ id, steamId, img, name, status, playtime }) => {
-    const { fetchCollections, addToCollection, deleteFromCollection, updateStatus } = useDb();
+    const { fetchGames, fetchCollections, addToCollection, deleteFromCollection, updateStatus } = useDb();
     const currentStatus = statusConfig[status];
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [isChangeStatusMenuOpen, setIsChangeStatusMenuOpen] = useState<boolean>(false);
@@ -46,6 +48,42 @@ const GameCard: React.FC<GameCardsProps> = ({ id, steamId, img, name, status, pl
         
         getCollections();
     }, []);
+
+    const getGames = async () => {
+        const games = await fetchGames();
+        if (!games) {
+            alert("Erro ao recuperar jogos.");
+        }
+        return games;
+    }
+
+    const changeStatus = async (id: string, status: string) => {
+
+        if (status !== "playing") {
+            const games = await getGames();
+            const playingGames = games.filter((game: Game) => (game.status === "playing"));
+
+            const orderdPlayingGames = orderBy(playingGames, "rtime_last_played", "asc");
+
+            if (orderdPlayingGames.length === 5) {
+                const result = await updateStatus(orderdPlayingGames[0].id, "played");
+                if (!result) {
+                    return;
+                }
+            }
+
+            const result2 = await updateStatus(id, "playing");
+            if (!result2) {
+                return;
+            }
+        }
+        const result = await updateStatus(id, status);
+        if (!result) {
+            return;
+        }
+
+        window.location.reload();
+    }
 
     const cancelClose = () => {
         if (closeTimeoutRef.current) {
@@ -70,13 +108,7 @@ const GameCard: React.FC<GameCardsProps> = ({ id, steamId, img, name, status, pl
 
     const handleStatusChange = async (id: string, status: string) => {
         closeMenus();
-        const result = await updateStatus(id, status);
-
-        if (!result) {
-            return;
-        }
-
-        window.location.reload();
+        changeStatus(id, status);
     }
 
     const handleAddToCollection = async (gameId: string, collectionId: string) => {
@@ -111,8 +143,10 @@ const GameCard: React.FC<GameCardsProps> = ({ id, steamId, img, name, status, pl
         console.log(name);
     }
 
-    const handleStartGame = (steamId: string) => {
+    const handleStartGame = async (id: string, steamId: string) => {
+        closeMenus();
         window.location.href = `steam://rungameid/${steamId}`;
+        changeStatus(id, "playing");
     }
 
     return (
@@ -197,7 +231,7 @@ const GameCard: React.FC<GameCardsProps> = ({ id, steamId, img, name, status, pl
                 </div>
             )}
             <img
-                onClick={() => handleStartGame(steamId)}
+                onClick={() => handleStartGame(id, steamId)}
                 onContextMenu={(e) => {
                     e.preventDefault();
                     setMenuPos({ x: e.clientX, y: e.clientY });
