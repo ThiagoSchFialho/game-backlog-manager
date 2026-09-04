@@ -44,16 +44,16 @@ const Collection: React.FC = () => {
     }, [id]);
 
     useEffect(() => {
-            const getCollections = async () => {
-                const collections = await fetchCollections();
-                if (collections) {
-                    setCollectionsList(collections);
-                    setSteamApiConnected(true);
-                }
+        const getCollections = async () => {
+            const collections = await fetchCollections();
+            if (collections) {
+                setCollectionsList(collections);
+                setSteamApiConnected(true);
             }
-            
-            getCollections();
-        }, []);
+        }
+        
+        getCollections();
+    }, []);
 
     return (
         <>
@@ -71,7 +71,7 @@ const Collection: React.FC = () => {
                             <GameCard
                                 key={game.id}
                                 id={game.id}
-                                    steamId={game.steam_id}
+                                steamId={game.steam_id}
                                 img={getGameCover(game.title)}
                                 name={game.title}
                                 status={game.status}

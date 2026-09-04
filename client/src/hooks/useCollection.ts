@@ -12,7 +12,7 @@ export const useCollection = () => {
             }
 
             const collections = data.filter((collection: any) =>
-                collection.games.some((game: any) => String(game.id) === game_id)
+                collection.games.some((game: any) => String(game.id) === String(game_id))
             );
 
             return collections;
