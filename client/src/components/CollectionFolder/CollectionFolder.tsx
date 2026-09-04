@@ -59,14 +59,14 @@ const CollectionFolder: React.FC<ColelctionFolderProps> = ({collection}) => {
             if (!result) {
                 return;
             }
-            
+
             window.location.reload();
             alert("Coleção excluida com sucesso.");
         }
     }
 
-    const handleRenameCollection = (id: string) => {
-
+    const handleRenameCollection = (collection: Collection) => {
+        
     }
 
     return (
@@ -80,7 +80,7 @@ const CollectionFolder: React.FC<ColelctionFolderProps> = ({collection}) => {
                         className="custom-menu"
                     >
                         <ul>
-                            <li onClick={() => handleRenameCollection(collection.id)}>Renomear Coleção</li>
+                            <li onClick={() => handleRenameCollection(collection)}>Renomear Coleção</li>
                             <li
                                 onClick={() => handleDeleteCollection(collection.id, collection.title)}
                                 style={{color: '#D43A2D'}}
