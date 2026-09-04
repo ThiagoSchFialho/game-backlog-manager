@@ -145,6 +145,28 @@ export const useDb = () => {
         }
     }
 
+    const createCollection = async (title: string) => {
+        try {
+            const response = await fetch(`${host}/collections`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ title: title })
+            });
+            const data = await response.json();
+
+            if (!response.ok) {
+                console.error("Erro ao criar coleção.", data.error);
+                return null;
+            }
+
+            return data;
+        } catch (error) {
+            console.error("Erro ao criar coleção.", error);
+        }
+    }
+
     const syncSteam = async () => {
         try {
             const response = await fetch (`${host}/steam-api/sync-and-update-games-from-steam`);
@@ -162,5 +184,5 @@ export const useDb = () => {
         }
     }
 
-    return {fetchGames, fetchCollections, updateStatus, addToCollection, deleteFromCollection, syncSteam}
+    return {fetchGames, fetchCollections, updateStatus, addToCollection, createCollection, deleteFromCollection, syncSteam}
 }

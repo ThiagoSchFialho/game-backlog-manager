@@ -7,7 +7,7 @@ import type { ICollection } from '../../types/collectionsType';
 import { useDb } from '../../hooks/useDb';
 
 const Collections: React.FC = () => {
-    const { fetchCollections } = useDb();
+    const { fetchCollections, createCollection } = useDb();
     const [steamApiConnected, setSteamApiConnected] = useState(false);
     const [currentPage] = useState('collections');
     const [collectionsList, setCollectionsList] = useState<ICollection[]>([]);
@@ -24,6 +24,18 @@ const Collections: React.FC = () => {
         getCollections();
     }, []);
 
+    const handleCreateCollection = async () => {
+        const title = prompt("Nome da coleção");
+        
+        if (title) {
+            const result = await createCollection(title);
+            if (!result) {
+                return;
+            }
+            window.location.reload();
+        }
+    }
+
     return (
         <>
             <Header steamApiConnected={steamApiConnected} />
@@ -34,7 +46,12 @@ const Collections: React.FC = () => {
                     <div className="page-header">
                         <h1 className="title">Coleções</h1>
                         <div className="create-collection-btn-container">
-                            <div className="create-collection-btn">Criar Coleção</div>
+                            <div
+                                onClick={() => handleCreateCollection()}
+                                className="create-collection-btn"
+                            >
+                                    Criar Coleção
+                            </div>
                         </div>
                     </div>
 

@@ -25,9 +25,9 @@
     align-items: center;
     justify-content: space-between;
     width: 250px;
-    padding: 5px 20px;
-    font-size: 16px;
-    font-weight: 600;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: 500;
     border-radius: 5px;
     cursor: pointer;
 }

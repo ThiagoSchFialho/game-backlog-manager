@@ -127,8 +127,9 @@ const GameCard: React.FC<GameCardsProps> = ({ id, steamId, img, name, status, pl
 
         if (result.error) {
             alert(result.error);
+        } else {
+            window.location.reload();
         }
-        window.location.reload();
     }
 
     const handleHideGame = (name: string) => {
@@ -199,7 +200,7 @@ const GameCard: React.FC<GameCardsProps> = ({ id, steamId, img, name, status, pl
                 <div
                     onMouseEnter={cancelClose}
                     onMouseLeave={scheduleClose}
-                    style={{ position: 'fixed', top: (menuPos.y + 60), left: (menuPos.x + 240) }}
+                    style={{ position: 'fixed', top: (menuPos.y + 35), left: (menuPos.x + 240) }}
                     className="custom-menu"
                 >
                     <ul>
@@ -213,7 +214,7 @@ const GameCard: React.FC<GameCardsProps> = ({ id, steamId, img, name, status, pl
                 <div
                     onMouseEnter={cancelClose}
                     onMouseLeave={scheduleClose}
-                    style={{ position: 'fixed', top: (menuPos.y + 60), left: (menuPos.x + 240) }}
+                    style={{ position: 'fixed', top: (menuPos.y + 75), left: (menuPos.x + 240) }}
                     className="custom-menu"
                 >
                     <ul>
