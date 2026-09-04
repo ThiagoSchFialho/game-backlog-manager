@@ -45,7 +45,7 @@ const Collections: React.FC = () => {
                 <div className="collection-title-form-container">
                     <img onClick={() => setIsCollectionFormOpen(false)} src={closeIcon}/>
                     <form onSubmit={(e) => e.preventDefault()}>
-                        <label htmlFor="collection-title">Nome da Coleção:</label>
+                        <label htmlFor="collection-title">Nome da Coleção</label>
                         <input
                             type="text"
                             name="collection-title"

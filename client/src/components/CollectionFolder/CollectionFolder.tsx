@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './styles.css';
 import { getGameCover } from '../../utils/getGameCover';
 import { useCollection } from '../../hooks/useCollection';
+import closeIcon from '../../assets/icons/close.svg';
 
 export type GameStatus = 'completed' | 'not-played' | 'played' | 'playing';
 
@@ -32,11 +33,13 @@ interface ColelctionFolderProps {
 }
 
 const CollectionFolder: React.FC<ColelctionFolderProps> = ({collection}) => {
-    const { deleteCollection } = useCollection();
+    const { deleteCollection, updateCollectionTitle } = useCollection();
     const navigation = useNavigate();
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [menuPos, setMenuPos] = useState<{ x: number; y: number } | null>(null);
     const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const [isCollectionFormOpen, setIsCollectionFormOpen] = useState(false);
+    const [collectionTitle, setCollectionTitle] = useState<string | undefined>('');
     
     const cancelClose = () => {
         if (closeTimeoutRef.current) {
@@ -65,12 +68,37 @@ const CollectionFolder: React.FC<ColelctionFolderProps> = ({collection}) => {
         }
     }
 
-    const handleRenameCollection = (collection: Collection) => {
-        
+    const handleRenameCollection = async (collection: Collection) => {
+        setIsCollectionFormOpen(false);
+        if (collectionTitle) {
+            const result = await updateCollectionTitle(String(collection.id), collectionTitle);
+            if (!result) {
+                return;
+            }
+        }
+        setCollectionTitle('');
+        window.location.reload();
     }
 
     return (
-        <>            
+        <>
+            {isCollectionFormOpen && (
+                <div className="collection-title-form-container">
+                    <img onClick={() => setIsCollectionFormOpen(false)} src={closeIcon}/>
+                    <form onSubmit={(e) => e.preventDefault()}>
+                        <label htmlFor="collection-title">Nome da Coleção</label>
+                        <input
+                            type="text"
+                            name="collection-title"
+                            id="collection-title"
+                            required
+                            value={collectionTitle}
+                            onChange={(e) => setCollectionTitle(e.target.value)}
+                        />
+                            <div onClick={() => handleRenameCollection(collection)}>Renomear Coleção</div>
+                    </form>
+                </div>
+            )}  
             <div className="collection-folder-container">
                 {menuPos && isMenuOpen && (
                     <div
@@ -80,13 +108,15 @@ const CollectionFolder: React.FC<ColelctionFolderProps> = ({collection}) => {
                         className="custom-menu"
                     >
                         <ul>
-                            <li onClick={() => handleRenameCollection(collection)}>Renomear Coleção</li>
+                            <li onClick={() => {
+                                setIsMenuOpen(false)
+                                setIsCollectionFormOpen(true)
+                            }}
+                            >Renomear Coleção</li>
                             <li
                                 onClick={() => handleDeleteCollection(collection.id, collection.title)}
                                 style={{color: '#D43A2D'}}
-                            >
-                                Excluir Coleção
-                            </li>
+                            >Excluir Coleção</li>
 
                         </ul>
                     </div>
