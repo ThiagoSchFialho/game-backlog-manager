@@ -1,6 +1,5 @@
 .collection-folder-container {
     margin-bottom: 30px;
-    cursor: pointer;
 }
 
 .collection-folder-container p {
@@ -21,6 +20,7 @@
     border-radius: 20px;
     width: 281px;
     height: 281px;
+    cursor: pointer;
 }
 
 .game {

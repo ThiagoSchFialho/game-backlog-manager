@@ -10,6 +10,7 @@ import { useDb } from '../../hooks/useDb';
 import type { ICollection } from '../../types/collectionsType';
 import type { Game } from '../../types/gamesType';
 import { orderBy } from '../../utils/orderBy';
+import { useCollection } from '../../hooks/useCollection';
 
 interface GameCardsProps {
     id: string;
@@ -28,7 +29,8 @@ const statusConfig = {
 };
 
 const GameCard: React.FC<GameCardsProps> = ({ id, steamId, img, name, status, playtime }) => {
-    const { fetchGames, fetchCollections, addToCollection, deleteFromCollection, updateStatus } = useDb();
+    const { fetchGames, updateStatus } = useDb();
+    const { fetchCollections, addToCollection, deleteFromCollection } = useCollection();
     const currentStatus = statusConfig[status];
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [isChangeStatusMenuOpen, setIsChangeStatusMenuOpen] = useState<boolean>(false);

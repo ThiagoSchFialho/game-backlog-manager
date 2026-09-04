@@ -15,14 +15,14 @@ import listSelected from '../../assets/icons/list-selected.svg';
 import folderSelected from '../../assets/icons/folder-selected.svg';
 import { useNavigate } from 'react-router-dom';
 import type { ICollection } from '../../types/collectionsType';
-import { useDb } from '../../hooks/useDb';
+import { useCollection } from '../../hooks/useCollection';
 
 interface SideMenuProps {
     currentPage: string;
 }
 
 const SideMenu: React.FC<SideMenuProps> = ({currentPage}) => {
-    const { fetchCollections } = useDb();
+    const { fetchCollections } = useCollection();
     const navigation = useNavigate();
     const [selected, setSelected] = useState('');
     const [collectionsList, setCollectionsList] = useState<ICollection[]>([]);

@@ -6,7 +6,7 @@ import SideMenu from '../../components/SideMenu/SideMenu';
 import GameCard from '../../components/GameCard/GameCard';
 import { getGameCover } from '../../utils/getGameCover';
 import type { ICollection } from '../../types/collectionsType';
-import { useDb } from '../../hooks/useDb';
+import { useCollection } from '../../hooks/useCollection';
 
 export type GameStatus = 'completed' | 'not-played' | 'played' | 'playing';
 
@@ -33,7 +33,7 @@ export interface Collection {
 
 const Collection: React.FC = () => {
     const { id } = useParams<{ id: string }>();
-    const { fetchCollections } = useDb();
+    const { fetchCollections } = useCollection();
     const [steamApiConnected, setSteamApiConnected] = useState(false);
     const [currentPage, setCurrentPage] = useState(`collection${id}`);
     const [collectionsList, setCollectionsList] = useState<ICollection[]>([]);

@@ -4,10 +4,10 @@ import Header from '../../components/Header/Header';
 import SideMenu from '../../components/SideMenu/SideMenu';
 import CollectionFolder from '../../components/CollectionFolder/CollectionFolder';
 import type { ICollection } from '../../types/collectionsType';
-import { useDb } from '../../hooks/useDb';
+import { useCollection } from '../../hooks/useCollection';
 
 const Collections: React.FC = () => {
-    const { fetchCollections, createCollection } = useDb();
+    const { fetchCollections, createCollection } = useCollection();
     const [steamApiConnected, setSteamApiConnected] = useState(false);
     const [currentPage] = useState('collections');
     const [collectionsList, setCollectionsList] = useState<ICollection[]>([]);
