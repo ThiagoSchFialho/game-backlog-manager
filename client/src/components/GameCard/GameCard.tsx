@@ -30,7 +30,7 @@ const statusConfig = {
 
 const GameCard: React.FC<GameCardsProps> = ({ id, steamId, img, name, status, playtime }) => {
     const { fetchGames, updateStatus } = useDb();
-    const { fetchCollections, addToCollection, deleteFromCollection } = useCollection();
+    const { fetchCollections, addToCollection, deleteFromCollection, getCollectionsFromGame } = useCollection();
     const currentStatus = statusConfig[status];
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [isChangeStatusMenuOpen, setIsChangeStatusMenuOpen] = useState<boolean>(false);
@@ -39,6 +39,7 @@ const GameCard: React.FC<GameCardsProps> = ({ id, steamId, img, name, status, pl
     const [menuPos, setMenuPos] = useState<{ x: number; y: number } | null>(null);
     const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const [collectionsList, setCollectionsList] = useState<ICollection[]>([]);
+    const [gameCollectionsList, setGameCollectionsList] = useState<ICollection[]>([]);
     
     useEffect(() => {
         const getCollections = async () => {
@@ -48,7 +49,15 @@ const GameCard: React.FC<GameCardsProps> = ({ id, steamId, img, name, status, pl
             }
         }
         
+        const getGameCollections = async () => {
+            const gameCollections = await getCollectionsFromGame(id);
+            if (gameCollections) {
+                setGameCollectionsList(gameCollections);
+            }
+        }
+
         getCollections();
+        getGameCollections();
     }, []);
 
     const getGames = async () => {
@@ -116,6 +125,8 @@ const GameCard: React.FC<GameCardsProps> = ({ id, steamId, img, name, status, pl
 
         if (result.error) {
             alert(result.error);
+        } else {
+            window.location.reload();
         }
     }
 
@@ -171,14 +182,16 @@ const GameCard: React.FC<GameCardsProps> = ({ id, steamId, img, name, status, pl
                             Adicionar a coleção
                             <img src={menuArrow} />
                         </li>
-                        <li onMouseOver={() => {
-                            setIsChangeStatusMenuOpen(false);
-                            setIsAddToCollectionMenuOpen(false);
-                            setisRemoveFromCollectionMenuOpen(true);
-                        }}>
-                            Remover da coleção
-                            <img src={menuArrow} />
-                        </li>
+                        {gameCollectionsList.length > 0 && (
+                            <li onMouseOver={() => {
+                                setIsChangeStatusMenuOpen(false);
+                                setIsAddToCollectionMenuOpen(false);
+                                setisRemoveFromCollectionMenuOpen(true);
+                            }}>
+                                Remover da coleção
+                                <img src={menuArrow} />
+                            </li>
+                        )}
                         <li onClick={() => handleHideGame(name)}>Ocultar</li>
                     </ul>
                 </div>
@@ -220,7 +233,7 @@ const GameCard: React.FC<GameCardsProps> = ({ id, steamId, img, name, status, pl
                     className="custom-menu"
                 >
                     <ul>
-                        {collectionsList.map(collection => (
+                        {gameCollectionsList.map(collection => (
                             <li onClick={() => handleRemoveFromCollection(id, collection.id)}>{collection.title}</li>
                         ))}
                     </ul>

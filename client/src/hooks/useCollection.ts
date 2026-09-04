@@ -1,7 +1,25 @@
-import type { ICollection } from "../types/collectionsType";
-
 export const useCollection = () => {
     const host = import.meta.env.VITE_BACKEND_HOST;
+
+    const getCollectionsFromGame = async (game_id: string) => {
+        try {
+            const response = await fetch (`${host}/collections/with-games`);
+            const data = await response.json();
+
+            if (!response.ok) {
+                console.error("Erro ao carregar coleções.", data.error);
+                return null;
+            }
+
+            const collections = data.filter((collection: any) =>
+                collection.games.some((game: any) => String(game.id) === game_id)
+            );
+
+            return collections;
+        } catch (error) {
+            console.error("Erro ao recuperar coleções do jogo.");
+        }
+    }
 
     const fetchCollections = async () => {
         try {
@@ -143,5 +161,13 @@ export const useCollection = () => {
         }
     }
 
-    return { fetchCollections, addToCollection, createCollection, deleteFromCollection, deleteCollection, updateCollectionTitle };
+    return { 
+        fetchCollections, 
+        addToCollection, 
+        createCollection, 
+        deleteFromCollection, 
+        deleteCollection, 
+        updateCollectionTitle, 
+        getCollectionsFromGame
+    };
 }
