@@ -1,3 +1,5 @@
+import type { ICollection } from "../types/collectionsType";
+
 export const useCollection = () => {
     const host = import.meta.env.VITE_BACKEND_HOST;
 
@@ -119,5 +121,27 @@ export const useCollection = () => {
         }
     }
 
-    return { fetchCollections, addToCollection, createCollection, deleteFromCollection, deleteCollection };
+    const updateCollectionTitle = async (id: string, title: string) => {
+        try {
+            const response = await fetch (`${host}/collections/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ title: title })
+            });
+            const data = await response.json();
+
+            if (!response.ok) {
+                console.error("Erro ao atualizar coleção.", data.error);
+                return null;
+            }
+
+            return data;
+        } catch (error) {
+            console.error("Erro ao atualizar coleção.", error);
+        }
+    }
+
+    return { fetchCollections, addToCollection, createCollection, deleteFromCollection, deleteCollection, updateCollectionTitle };
 }
