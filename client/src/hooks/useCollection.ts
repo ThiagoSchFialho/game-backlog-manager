@@ -98,5 +98,26 @@ export const useCollection = () => {
         }
     }
 
-    return { fetchCollections, addToCollection, createCollection, deleteFromCollection };
+    const deleteCollection = async (id: string) => {
+        try {
+            const response = await fetch (`${host}/collections/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const data = await response.json();
+
+            if (!response.ok) {
+                console.error("Erro ao excluir coleção.", data.error);
+                return null;
+            }
+
+            return data;
+        } catch (error) {
+            console.error("Erro ao excluir coleção.", error);
+        }
+    }
+
+    return { fetchCollections, addToCollection, createCollection, deleteFromCollection, deleteCollection };
 }

@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './styles.css';
 import { getGameCover } from '../../utils/getGameCover';
-import { useDb } from '../../hooks/useDb';
+import { useCollection } from '../../hooks/useCollection';
 
 export type GameStatus = 'completed' | 'not-played' | 'played' | 'playing';
 
@@ -32,7 +32,7 @@ interface ColelctionFolderProps {
 }
 
 const CollectionFolder: React.FC<ColelctionFolderProps> = ({collection}) => {
-    const {  } = useDb();
+    const { deleteCollection } = useCollection();
     const navigation = useNavigate();
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [menuPos, setMenuPos] = useState<{ x: number; y: number } | null>(null);
@@ -52,10 +52,16 @@ const CollectionFolder: React.FC<ColelctionFolderProps> = ({collection}) => {
         }, 150);
     };
 
-    const handleDeleteCollection = (id: string, name: string) => {
+    const handleDeleteCollection = async (id: string, name: string) => {
         const confirmation = confirm(`Quer mesmo excluir a coleção '${name}'?`)
         if (confirmation) {
-            alert('excluindo coleção');
+            const result = await deleteCollection(id);
+            if (!result) {
+                return;
+            }
+            
+            window.location.reload();
+            alert("Coleção excluida com sucesso.");
         }
     }
 
