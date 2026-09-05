@@ -43,8 +43,31 @@
     background-color: rgba(212, 172, 39, 0.2);
     border: 1px solid rgba(212, 172, 39, 0.5);
 }
+
+
 .backlog-not-played-games .backlog-games-container-title {
     font-size: 22px;
     font-weight: 600;
     color: var(--warning);
+}
+
+.backlog-games-container-header {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.expand-arrow {
+    width: 45px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+.expand-arrow-active {
+    width: 45px;
+    margin-right: 10px;
+    cursor: pointer;
+    transform: rotate(90deg);
+    transition: 0.1s;
 }
