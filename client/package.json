@@ -5,21 +5,35 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "main": "electron/main.js",
+  "main": "dist-electron/main.js",
   "homepage": "./",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "electron-dev": "concurrently \"npm run dev\" \"wait-on http://localhost:5173 && cross-env ELECTRON_START_URL=http://localhost:5173 electron .\"",
-    "electron-pack": "npm run build && electron-builder"
+    "build:electron": "tsc -p tsconfig.electron.json",
+    "electron-pack": "npm run build && npm run build:electron && electron-builder"
   },
   "build": {
-    "appId": "com.seuapp.id",
-    "files": ["dist/**/*", "electron/main.js"],
-    "directories": {
-      "buildResources": "assets"
-    }
+    "files": ["dist/**/*", "dist-electron/**/*"],
+    "extraResources": [
+      {
+        "from": "../server/dist",
+        "to": "backend/dist"
+      },
+      {
+        "from": "../server/node_modules",
+        "to": "backend/node_modules"
+      },
+      {
+        "from": "../server/package.json",
+        "to": "backend/package.json"
+      },
+      {
+        "from": "../server/.env",
+        "to": "backend/.env"
+      }
+    ]
   },
   "dependencies": {
     "react": "^19.2.8",
